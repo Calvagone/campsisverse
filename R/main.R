@@ -19,8 +19,7 @@ restoreEnv <- function(dir=dirname(tempdir()), version="0.0.1") {
   renv::restore(lockfile=tmpRenvFile, exclude=getPrivatePackages(),
                 project=file.path(dir, paste0("campsisverse_", version)))
   
-  # Snapshot
-  renv::snapshot(project=file.path(dir, paste0("campsisverse_", version)))
+  # https://stackoverflow.com/questions/68890715/install-r-package-with-specific-version-and-tests
 }
 
 #'
