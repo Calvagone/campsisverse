@@ -8,6 +8,7 @@
 #' @export
 #'
 restore <- function(version=getPackageVersion(), ...) {
+  configureOptions()
   renv::restore(lockfile=getLockFile(version=version), ...)
 }
 
@@ -20,7 +21,21 @@ restore <- function(version=getPackageVersion(), ...) {
 #' @export
 #'
 use <- function(version=getPackageVersion(), ...) {
+  configureOptions()
   renv::use(lockfile=getLockFile(version=version), ...)
+}
+
+#'
+#' Use environment.
+#'
+#' @param packages campsisverse version
+#' @param ... extra arguments
+#' @importFrom renv restore
+#' @export
+#'
+qualify <- function(packages, fullname, output_dir=".") {
+  require("campsisqual")
+  campsisqual::runQualification(packages=packages, fullname=fullname, output_dir=output_dir)
 }
 
 #'
@@ -38,6 +53,18 @@ getLockFile <- function(version=getPackageVersion()) {
   writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
   close(fileConn)
   return(filePath)
+}
+
+#' Configure options.
+#' 
+#' @return nothing
+#' @export
+configureOptions <- function() {
+  installTests <- "--install-tests"
+  options(INSTALL_opts.campsismod = installTests)
+  options(INSTALL_opts.campsis = installTests)
+  options(INSTALL_opts.campsisnca = installTests)
+  options(INSTALL_opts.campsismisc = installTests)
 }
 
 getEnvDefaultDir <- function() {
