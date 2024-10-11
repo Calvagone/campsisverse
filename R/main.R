@@ -7,7 +7,7 @@
 #' @importFrom renv restore
 #' @export
 #'
-restoreEnv <- function(dir=dirname(tempdir()), version="0.0.1") {
+restoreEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
   # Create a temporary file with the renv.lock data
   tmpRenvFile <- tempfile()
   fileConn <- file(tmpRenvFile)
@@ -16,8 +16,7 @@ restoreEnv <- function(dir=dirname(tempdir()), version="0.0.1") {
   close(fileConn)
 
   # Restore the environment
-  renv::restore(lockfile=tmpRenvFile, exclude=getPrivatePackages(),
-                project=file.path(dir, paste0("campsisverse_", version)))
+  renv::restore(lockfile=tmpRenvFile, project=file.path(dir, paste0("campsisverse_", version)))
   
   # https://stackoverflow.com/questions/68890715/install-r-package-with-specific-version-and-tests
 }
@@ -30,14 +29,15 @@ restoreEnv <- function(dir=dirname(tempdir()), version="0.0.1") {
 #' @importFrom renv load
 #' @export
 #'
-loadEnv <- function(dir=dirname(tempdir()), version="0.0.1") {
+loadEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
   renv::load(project=file.path(dir, paste0("campsisverse_", version)))
 }
 
-getPrivatePackages <- function() {
-  retValue <- "campsistrans" |>
-    append("campsisqual") |>
-    append("calvamod") |>
-    append("ecampsis")
-  return(retValue)
+getEnvDefaultDir <- function() {
+  return(dirname(tempdir()))
+}
+
+getPackageVersion <- function() {
+  return(getNamespaceVersion("campsisverse") |>
+           as.character())
 }

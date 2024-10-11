@@ -4,7 +4,7 @@
 \alias{restoreEnv}
 \title{Restore environment.}
 \usage{
-restoreEnv(dir = dirname(tempdir()), version = "0.0.1")
+restoreEnv(dir = getEnvDefaultDir(), version = getPackageVersion())
 }
 \arguments{
 \item{dir}{temporary directory}

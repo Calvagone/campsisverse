@@ -4,7 +4,7 @@
 \alias{loadEnv}
 \title{Load environment.}
 \usage{
-loadEnv(dir = dirname(tempdir()), version = "0.0.1")
+loadEnv(dir = getEnvDefaultDir(), version = getPackageVersion())
 }
 \arguments{
 \item{dir}{temporary directory}
