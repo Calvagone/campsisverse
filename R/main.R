@@ -26,14 +26,16 @@ use <- function(version=getPackageVersion(), ...) {
 }
 
 #'
-#' Use environment.
+#' Qualify the Campsis environment.
 #'
 #' @param packages campsisverse version
+#' @param fullname full user name (firstname lastname)
+#' @param output_dir output directory of the qualification report
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-qualify <- function(packages, fullname, output_dir=".") {
+qualify <- function(packages, fullname, output_dir=getwd()) {
   require("campsisqual")
   campsisqual::runQualification(packages=packages, fullname=fullname, output_dir=output_dir)
 }

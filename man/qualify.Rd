@@ -2,15 +2,19 @@
 % Please edit documentation in R/main.R
 \name{qualify}
 \alias{qualify}
-\title{Use environment.}
+\title{Qualify the Campsis environment.}
 \usage{
-qualify(packages, fullname, output_dir = ".")
+qualify(packages, fullname, output_dir = getwd())
 }
 \arguments{
 \item{packages}{campsisverse version}
 
+\item{fullname}{full user name (firstname lastname)}
+
+\item{output_dir}{output directory of the qualification report}
+
 \item{...}{extra arguments}
 }
 \description{
-Use environment.
+Qualify the Campsis environment.
 }
