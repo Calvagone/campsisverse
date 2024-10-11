@@ -3,26 +3,28 @@
 #' Restore environment.
 #'
 #' @param version campsisverse version
+#' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-restore <- function(version=getPackageVersion(), ...) {
+restore <- function(version=getPackageVersion(), all=FALSE, ...) {
   configureOptions()
-  renv::restore(lockfile=getLockFile(version=version), ...)
+  renv::restore(lockfile=getLockFile(version=version, all=all), ...)
 }
 
 #'
 #' Use environment.
 #'
 #' @param version campsisverse version
+#' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-use <- function(version=getPackageVersion(), ...) {
+use <- function(version=getPackageVersion(), all=FALSE, ...) {
   configureOptions()
-  renv::use(lockfile=getLockFile(version=version), ...)
+  renv::use(lockfile=getLockFile(version=version, all=all), ...)
 }
 
 #'
@@ -43,15 +45,15 @@ qualify <- function(packages, fullname, output_dir=getwd()) {
 #'
 #' Get lock file.
 #'
-#' @param dir temporary directory
 #' @param version campsisverse version
+#' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @importFrom renv load
 #' @export
 #'
-getLockFile <- function(version=getPackageVersion()) {
+getLockFile <- function(version=getPackageVersion(), all=FALSE) {
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
-  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
+  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version, ifelse(all, "_all", "")))))
   writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
   close(fileConn)
   return(filePath)
@@ -67,6 +69,7 @@ configureOptions <- function() {
   options(INSTALL_opts.campsis = installTests)
   options(INSTALL_opts.campsisnca = installTests)
   options(INSTALL_opts.campsismisc = installTests)
+  options(INSTALL_opts.campsisqual = installTests)
 }
 
 getEnvDefaultDir <- function() {
