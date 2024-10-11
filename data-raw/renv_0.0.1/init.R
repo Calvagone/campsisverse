@@ -2,7 +2,7 @@ library(renv)
 
 project <- "data-raw/renv_0.0.1"
 
-# Note: click no when you are prompted to activate the project
+# Note: click no when you are prompted to quit the session
 renv::init(project=project, repos="https://packagemanager.posit.co/cran/2024-09-30")
 
 # Install open-source packages
@@ -11,6 +11,8 @@ renv::install(project=project,
                          "Calvagone/campsis@v1.5.4",
                          "Calvagone/campsisnca@v1.5.0",
                          "Calvagone/campsismisc@v0.5.0",
+                         "mrgsolve",
+                         "rxode2",
                          "xgxr",
                          "cowplot"),
               lock=TRUE)

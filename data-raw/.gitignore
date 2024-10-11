@@ -1,2 +1,3 @@
 renv_*/renv/*
 renv_*/.Rprofile
+renv_*/*.Rproj
