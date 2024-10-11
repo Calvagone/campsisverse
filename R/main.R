@@ -7,18 +7,21 @@
 #' @importFrom renv restore
 #' @export
 #'
-restoreEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
-  # Create a temporary file with the renv.lock data
-  tmpRenvFile <- tempfile()
-  fileConn <- file(tmpRenvFile)
-  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
-  writeLines(data, fileConn)
-  close(fileConn)
-
-  # Restore the environment
-  renv::restore(lockfile=tmpRenvFile, project=file.path(dir, paste0("campsisverse_", version)))
+installEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
   
-  # https://stackoverflow.com/questions/68890715/install-r-package-with-specific-version-and-tests
+  project <- file.path(dir, paste0("campsisverse_", version))
+  
+  # make dir
+  dir.create(project, showWarnings=FALSE)
+  
+  # Create a temporary file with the renv.lock data
+  filePath <- file.path(project, "renv.lock")
+  fileConn <- file(filePath)
+  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
+  writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
+  close(fileConn)
+  
+  renv::restore(lockfile=filePath, project=project, exclude="campsisnca")
 }
 
 #'
@@ -40,4 +43,16 @@ getEnvDefaultDir <- function() {
 getPackageVersion <- function() {
   return(getNamespaceVersion("campsisverse") |>
            as.character())
+}
+
+#' With directory
+#' 
+#' @param dir directory
+#' @param expr expression
+#' @export
+with_dir <- function(dir, expr) {
+  old_wd <- getwd()
+  on.exit(setwd(old_wd))
+  setwd(dir)
+  evalq(expr)
 }
