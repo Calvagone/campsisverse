@@ -2,38 +2,42 @@
 #'
 #' Restore environment.
 #'
-#' @param dir temporary directory
 #' @param version campsisverse version
+#' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-installEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
-  
-  project <- file.path(dir, paste0("campsisverse_", version))
-  
-  # make dir
-  dir.create(project, showWarnings=FALSE)
-  
-  # Create a temporary file with the renv.lock data
-  filePath <- file.path(project, "renv.lock")
-  fileConn <- file(filePath)
-  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
-  writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
-  close(fileConn)
-  
-  renv::restore(lockfile=filePath, project=project, exclude="campsisnca")
+restore <- function(version=getPackageVersion(), ...) {
+  renv::restore(lockfile=getLockFile(version=version), ...)
 }
 
 #'
-#' Load environment.
+#' Use environment.
+#'
+#' @param version campsisverse version
+#' @param ... extra arguments
+#' @importFrom renv restore
+#' @export
+#'
+use <- function(version=getPackageVersion(), ...) {
+  renv::use(lockfile=getLockFile(version=version), ...)
+}
+
+#'
+#' Get lock file.
 #'
 #' @param dir temporary directory
 #' @param version campsisverse version
 #' @importFrom renv load
 #' @export
 #'
-loadEnv <- function(dir=getEnvDefaultDir(), version=getPackageVersion()) {
-  renv::load(project=file.path(dir, paste0("campsisverse_", version)))
+getLockFile <- function(version=getPackageVersion()) {
+  filePath <- tempfile(fileext=".lock")
+  fileConn <- file(filePath)
+  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
+  writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
+  close(fileConn)
+  return(filePath)
 }
 
 getEnvDefaultDir <- function() {
