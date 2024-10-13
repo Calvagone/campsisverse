@@ -722,7 +722,13 @@
     "campsisverse": {
       "Package": "campsisverse",
       "Version": "0.0.1",
-      "Source": "unknown",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "Calvagone",
+      "RemoteRepo": "campsisverse",
+      "RemoteRef": "master",
+      "RemoteSha": "fb33148548c00934c34245d8a90caee3a7f810e8",
       "Requirements": [
         "R",
         "assertthat",
@@ -732,7 +738,7 @@
         "purrr",
         "renv"
       ],
-      "Hash": "379e23530b6e4ec0e8121d73ee8e2bca"
+      "Hash": "04b41817cfba40b26657e44229194278"
     },
     "cards": {
       "Package": "cards",

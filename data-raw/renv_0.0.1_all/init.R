@@ -17,13 +17,13 @@ renv::install(project=project,
                          "Calvagone/campsistrans@v1.2.2",
                          "Calvagone/ecampsis@v1.12.3",
                          "Calvagone/calvamod@v0.6.0",
-                         "Calvagone/campsisqual@develop",
+                         "Calvagone/campsisqual@develop", # To replace by the official release
+                         "Calvagone/campsisverse@master", # To replace by the official release
                          "mrgsolve",
                          "rxode2",
                          "xgxr",
                          "cowplot",
                          "ragg"),
-              exclude=c("campsisverse"),
               rebuild=TRUE,
               lock=TRUE)
 
