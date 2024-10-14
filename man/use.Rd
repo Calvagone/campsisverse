@@ -4,10 +4,12 @@
 \alias{use}
 \title{Use environment.}
 \usage{
-use(version = getPackageVersion(), ...)
+use(version = getPackageVersion(), all = FALSE, ...)
 }
 \arguments{
 \item{version}{campsisverse version}
+
+\item{all}{all packages, included private ones (authentication key needed), default is FALSE}
 
 \item{...}{extra arguments}
 }

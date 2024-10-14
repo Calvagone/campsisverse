@@ -4,10 +4,12 @@
 \alias{restore}
 \title{Restore environment.}
 \usage{
-restore(version = getPackageVersion(), ...)
+restore(version = getPackageVersion(), all = FALSE, ...)
 }
 \arguments{
 \item{version}{campsisverse version}
+
+\item{all}{all packages, included private ones (authentication key needed), default is FALSE}
 
 \item{...}{extra arguments}
 }

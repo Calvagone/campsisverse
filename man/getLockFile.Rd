@@ -4,12 +4,12 @@
 \alias{getLockFile}
 \title{Get lock file.}
 \usage{
-getLockFile(version = getPackageVersion())
+getLockFile(version = getPackageVersion(), all = FALSE)
 }
 \arguments{
 \item{version}{campsisverse version}
 
-\item{dir}{temporary directory}
+\item{all}{all packages, included private ones (authentication key needed), default is FALSE}
 }
 \description{
 Get lock file.
