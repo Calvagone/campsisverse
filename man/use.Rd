@@ -9,7 +9,7 @@ use(version = getPackageVersion(), all = FALSE, ...)
 \arguments{
 \item{version}{campsisverse version}
 
-\item{all}{all packages, included private ones (authentication key needed), default is FALSE}
+\item{all}{all packages, included private ones, default is FALSE. Reserved for Calvagone members only.}
 
 \item{...}{extra arguments}
 }

@@ -3,7 +3,7 @@
 #' Restore environment.
 #'
 #' @param version campsisverse version
-#' @param all all packages, included private ones (authentication key needed), default is FALSE
+#' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
@@ -17,7 +17,7 @@ restore <- function(version=getPackageVersion(), all=FALSE, ...) {
 #' Use environment.
 #'
 #' @param version campsisverse version
-#' @param all all packages, included private ones (authentication key needed), default is FALSE
+#' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
@@ -48,14 +48,26 @@ qualify <- function(packages, fullname, output_dir=getwd()) {
 #' @param version campsisverse version
 #' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @importFrom renv load
+#' @importFrom jsonlite fromJSON toJSON
 #' @export
 #'
 getLockFile <- function(version=getPackageVersion(), all=FALSE) {
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
-  data <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version, ifelse(all, "_all", "")))))
-  writeLines(gsub(pattern="\r", replacement="", x=data), sep="", fileConn)
+  dataRaw <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
+  data <- jsonlite::fromJSON(txt=dataRaw)
+  
+  # Discard private packages if argument all is FALSE
+  if (!all) {
+    packageNames <- names(data$Packages)
+    packageNames <- packageNames[!packageNames %in% getPrivatePackages()]
+    data$Packages <- data$Packages[packageNames]
+  }
+  
+  json <- jsonlite::toJSON(data, auto_unbox=TRUE, pretty=TRUE)
+  writeLines(gsub(pattern="\r", replacement="", x=json), sep="", fileConn)
   close(fileConn)
+  
   return(filePath)
 }
 
@@ -70,6 +82,15 @@ configureOptions <- function() {
   options(INSTALL_opts.campsisnca = installTests)
   options(INSTALL_opts.campsismisc = installTests)
   options(INSTALL_opts.campsisqual = installTests)
+}
+
+#'
+#' Get the private packages from the Campsis suite.
+#'
+#' @return a character vector of the private packages
+#'
+getPrivatePackages <- function() {
+  return(c("campsistrans", "calvamod", "campsisqual", "campsisverse"))
 }
 
 getEnvDefaultDir <- function() {
