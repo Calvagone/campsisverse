@@ -555,14 +555,14 @@
     },
     "campsisnca": {
       "Package": "campsisnca",
-      "Version": "1.5.0",
+      "Version": "1.4.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsisnca",
-      "RemoteRef": "v1.5.0",
-      "RemoteSha": "b62b1d75c3ab31f3533a0c8d5062feaca96412d9",
+      "RemoteRef": "v1.4.0",
+      "RemoteSha": "4814a860aa48fbbe9d638a9bd524bc397dc00b75",
       "Requirements": [
         "R",
         "assertthat",
@@ -580,7 +580,7 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "023f4595be2e38f7529084b967a524c9"
+      "Hash": "dfe54b002f95e416aef79acf6f595cdc"
     },
     "campsisqual": {
       "Package": "campsisqual",
