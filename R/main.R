@@ -19,7 +19,7 @@ restore <- function(version=getPackageVersion(), all=FALSE, ...) {
 #' @param version campsisverse version
 #' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
 #' @param ... extra arguments
-#' @importFrom renv restore
+#' @importFrom renv use
 #' @export
 #'
 use <- function(version=getPackageVersion(), all=FALSE, ...) {
@@ -28,18 +28,31 @@ use <- function(version=getPackageVersion(), all=FALSE, ...) {
 }
 
 #'
-#' Qualify the Campsis environment.
+#' Qualify the Campsis environment. Note that this is just a call to the campsisqual::runQualification function.
 #'
 #' @param packages campsisverse version
 #' @param fullname full user name (firstname lastname)
 #' @param output_dir output directory of the qualification report
 #' @param ... extra arguments
-#' @importFrom renv restore
 #' @export
 #'
-qualify <- function(packages, fullname, output_dir=getwd()) {
+runQualification <- function(packages, fullname, output_dir=getwd()) {
   require("campsisqual")
   campsisqual::runQualification(packages=packages, fullname=fullname, output_dir=output_dir)
+}
+
+#'
+#' Uninstall the Campsis suite.
+#'
+#' @export
+#'
+uninstall <- function() {
+  packages <- c(getPublicPackages(), getPrivatePackages())
+  for (package in packages) {
+    if (length(find.package(package, quiet=TRUE)) > 0) {
+      remove.packages(package)
+    }
+  }
 }
 
 #'
@@ -81,6 +94,7 @@ configureOptions <- function() {
   options(INSTALL_opts.campsis = installTests)
   options(INSTALL_opts.campsisnca = installTests)
   options(INSTALL_opts.campsismisc = installTests)
+  options(INSTALL_opts.campsistrans = installTests)
   options(INSTALL_opts.campsisqual = installTests)
 }
 
@@ -91,6 +105,15 @@ configureOptions <- function() {
 #'
 getPrivatePackages <- function() {
   return(c("campsistrans", "calvamod", "campsisqual", "campsisverse"))
+}
+
+#'
+#' Get the public packages from the Campsis suite.
+#'
+#' @return a character vector of the public packages
+#'
+getPublicPackages <- function() {
+  return(c("campsismod", "campsis", "campsisnca", "campsismisc"))
 }
 
 getEnvDefaultDir <- function() {
