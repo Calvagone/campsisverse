@@ -4,7 +4,7 @@
     "Repositories": [
       {
         "Name": "CRAN",
-        "URL": "https://packagemanager.posit.co/cran/2024-10-21"
+        "URL": "https://packagemanager.posit.co/cran/2024-10-17"
       }
     ]
   },
@@ -288,7 +288,7 @@
       "Package": "askpass",
       "Version": "1.2.1",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "sys"
       ],
@@ -847,7 +847,7 @@
       "Package": "data.table",
       "Version": "1.16.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "methods"
@@ -1138,7 +1138,7 @@
       "Package": "glue",
       "Version": "1.8.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "methods"
@@ -1477,7 +1477,7 @@
       "Package": "lmom",
       "Version": "3.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "R",
         "graphics",
@@ -1572,7 +1572,7 @@
     },
     "mrgsolve": {
       "Package": "mrgsolve",
-      "Version": "1.5.2",
+      "Version": "1.5.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1589,7 +1589,7 @@
         "tibble",
         "tidyselect"
       ],
-      "Hash": "749c9862d2f1db62670a5e5c564cb9ef"
+      "Hash": "689a814a168f375aa0ebfeeb3ee78394"
     },
     "munsell": {
       "Package": "munsell",
@@ -1862,7 +1862,7 @@
       "Package": "qs",
       "Version": "0.27.2",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Requirements": [
         "BH",
         "R",
@@ -2089,7 +2089,7 @@
       "Package": "rstudioapi",
       "Version": "0.17.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "fb9f5fce8f609e9b66f0bea5c783f88a"
     },
     "rxode2": {
@@ -2262,7 +2262,7 @@
       "Package": "sys",
       "Version": "3.4.3",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "RSPM",
       "Hash": "de342ebfebdbf40477d0758d05426646"
     },
     "systemfonts": {

@@ -1,4 +1,4 @@
-repos <- "https://packagemanager.posit.co/cran/2024-10-21"
+repos <- "https://packagemanager.posit.co/cran/2024-10-17" # Just before mrgsolve v1.5.2
 options(repos=repos)
 
 # Install correct version of renv
