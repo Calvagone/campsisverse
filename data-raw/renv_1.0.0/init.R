@@ -13,7 +13,7 @@ renv::install(
     "Calvagone/campsismod@v1.1.1",
     "Calvagone/campsis@v1.5.4",
     "Calvagone/campsisnca@v1.5.0",
-    "Calvagone/campsismisc@v0.5.0",
+    "Calvagone/campsismisc@v0.5.1",
     "Calvagone/campsistrans@v1.2.2",
     "Calvagone/calvamod@v0.6.0",
     "Calvagone/campsisqual@v1.2.0",
