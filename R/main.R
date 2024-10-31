@@ -65,9 +65,10 @@ uninstall <- function() {
 #' @export
 #'
 getLockFile <- function(version=getPackageVersion(), all=FALSE) {
+  version_ <- processVersion(version)
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
-  dataRaw <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version))))
+  dataRaw <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version_))))
   data <- jsonlite::fromJSON(txt=dataRaw)
   
   # Discard private packages if argument all is FALSE
@@ -82,6 +83,23 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE) {
   close(fileConn)
   
   return(filePath)
+}
+
+processVersion <- function(version) {
+  version_ <- gsub(pattern="[\\.-]", replacement="", x=version)
+  if (!version_ %in% getAvailableVersions()) {
+    stop(sprintf("Version %s is not available. Available versions are: %s", version, paste(getAvailableVersions(as_date=TRUE), collapse=", ")))
+  }
+  return(version_)
+}
+
+getAvailableVersions <- function(as_date=FALSE) {
+  dataItems <- as.character(data(package="campsisverse")[["results"]][,"Item"])
+  retValue <- gsub("renv_lock_", "", dataItems)
+  if (as_date) {
+    retValue <- gsub(pattern="(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)", replacement="\\1\\2-\\3\\4-\\5\\6", x=retValue)
+  }
+  return(retValue)
 }
 
 #' Configure options.
@@ -104,7 +122,7 @@ configureOptions <- function() {
 #' @return a character vector of the private packages
 #'
 getPrivatePackages <- function() {
-  return(c("campsistrans", "calvamod", "campsisqual", "campsisverse"))
+  return(c("campsistrans", "calvamod", "campsisqual"))
 }
 
 #'
@@ -116,23 +134,7 @@ getPublicPackages <- function() {
   return(c("campsismod", "campsis", "campsisnca", "campsismisc"))
 }
 
-getEnvDefaultDir <- function() {
-  return(dirname(tempdir()))
-}
-
 getPackageVersion <- function() {
   return(getNamespaceVersion("campsisverse") |>
            as.character())
-}
-
-#' With directory
-#' 
-#' @param dir directory
-#' @param expr expression
-#' @export
-with_dir <- function(dir, expr) {
-  old_wd <- getwd()
-  on.exit(setwd(old_wd))
-  setwd(dir)
-  evalq(expr)
 }
