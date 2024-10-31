@@ -33,7 +33,6 @@ use <- function(version=getPackageVersion(), all=FALSE, ...) {
 #' @param packages campsisverse version
 #' @param fullname full user name (firstname lastname)
 #' @param output_dir output directory of the qualification report
-#' @param ... extra arguments
 #' @export
 #'
 runQualification <- function(packages, fullname, output_dir=getwd()) {

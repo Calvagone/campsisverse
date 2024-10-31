@@ -12,8 +12,6 @@ runQualification(packages, fullname, output_dir = getwd())
 \item{fullname}{full user name (firstname lastname)}
 
 \item{output_dir}{output directory of the qualification report}
-
-\item{...}{extra arguments}
 }
 \description{
 Qualify the Campsis environment. Note that this is just a call to the campsisqual::runQualification function.
