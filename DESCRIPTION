@@ -11,21 +11,11 @@ BugReports: https://github.com/Calvagone/campsisverse/issues
 Depends: 
     R (>= 4.0.0)
 Imports: 
-    assertthat,
-    dplyr,
     jsonlite,
-    magrittr,
-    methods,
-    purrr,
     renv
-Suggests: 
-    devtools,
+Suggests:
     knitr,
-    pkgdown,
-    rmarkdown,
-    roxygen2,
-    testthat,
-    xfun
+    testthat
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
@@ -33,6 +23,5 @@ Language: en-US
 LazyData: true
 RoxygenNote: 7.3.2
 Collate:
-    'global.R'
     'data.R'
     'main.R'

@@ -10,7 +10,8 @@
 #'
 restore <- function(version=getPackageVersion(), all=FALSE, ...) {
   configureOptions()
-  renv::restore(lockfile=getLockFile(version=version, all=all), ...)
+  # Warning is suppressed because of the following issue: #1
+  suppressWarnings(renv::restore(lockfile=getLockFile(version=version, all=all), ...))
 }
 
 #'
@@ -24,7 +25,8 @@ restore <- function(version=getPackageVersion(), all=FALSE, ...) {
 #'
 use <- function(version=getPackageVersion(), all=FALSE, ...) {
   configureOptions()
-  renv::use(lockfile=getLockFile(version=version, all=all), ...)
+  # Warning is suppressed because of the following issue: #1
+  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all), ...))
 }
 
 #'
