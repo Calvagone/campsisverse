@@ -30,19 +30,6 @@ use <- function(version=getPackageVersion(), all=FALSE, ...) {
 }
 
 #'
-#' Qualify the Campsis environment. Note that this is just a call to the campsisqual::runQualification function.
-#'
-#' @param packages campsisverse version
-#' @param fullname full user name (firstname lastname)
-#' @param output_dir output directory of the qualification report
-#' @export
-#'
-runQualification <- function(packages, fullname, output_dir=getwd()) {
-  require("campsisqual")
-  campsisqual::runQualification(packages=packages, fullname=fullname, output_dir=output_dir)
-}
-
-#'
 #' Uninstall the Campsis suite.
 #'
 #' @export
@@ -123,7 +110,7 @@ configureOptions <- function() {
 #' @return a character vector of the private packages
 #'
 getPrivatePackages <- function() {
-  return(c("campsistrans", "calvamod", "campsisqual"))
+  return(c("campsistrans", "calvamod"))
 }
 
 #'
@@ -132,7 +119,7 @@ getPrivatePackages <- function() {
 #' @return a character vector of the public packages
 #'
 getPublicPackages <- function() {
-  return(c("campsismod", "campsis", "campsisnca", "campsismisc"))
+  return(c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual"))
 }
 
 getPackageVersion <- function() {

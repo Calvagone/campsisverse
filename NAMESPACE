@@ -3,7 +3,6 @@
 export(configureOptions)
 export(getLockFile)
 export(restore)
-export(runQualification)
 export(uninstall)
 export(use)
 importFrom(jsonlite,fromJSON)
