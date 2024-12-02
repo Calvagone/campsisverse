@@ -4,14 +4,15 @@
 #'
 #' @param version campsisverse version
 #' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
+#' @param no_deps do not restore Campsis suite dependencies as specified in the lock file, default is FALSE.
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-restore <- function(version=getPackageVersion(), all=FALSE, ...) {
-  configureOptions()
+restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
+  options(INSTALL_opts="--install-tests")
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::restore(lockfile=getLockFile(version=version, all=all), ...))
+  suppressWarnings(renv::restore(lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
 }
 
 #'
@@ -19,14 +20,15 @@ restore <- function(version=getPackageVersion(), all=FALSE, ...) {
 #'
 #' @param version campsisverse version
 #' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
+#' @param no_deps do not use Campsis suite dependencies as specified in the lock file, default is FALSE.
 #' @param ... extra arguments
 #' @importFrom renv use
 #' @export
 #'
-use <- function(version=getPackageVersion(), all=FALSE, ...) {
-  configureOptions()
+use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
+  options(INSTALL_opts="--install-tests")
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all), ...))
+  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
 }
 
 #'
@@ -48,11 +50,12 @@ uninstall <- function() {
 #'
 #' @param version campsisverse version
 #' @param all all packages, included private ones (authentication key needed), default is FALSE
+#' @param no_deps discard Campsis suite dependencies specified in the lock file, default is FALSE.
 #' @importFrom renv load
 #' @importFrom jsonlite fromJSON toJSON
 #' @export
 #'
-getLockFile <- function(version=getPackageVersion(), all=FALSE) {
+getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE) {
   version_ <- processVersion(version)
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
@@ -63,6 +66,13 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE) {
   if (!all) {
     packageNames <- names(data$Packages)
     packageNames <- packageNames[!packageNames %in% getPrivatePackages()]
+    data$Packages <- data$Packages[packageNames]
+  }
+  
+  # Discard Campsis suite dependencies if argument no_deps is TRUE
+  if (no_deps) {
+    packageNames <- names(data$Packages)
+    packageNames <- packageNames[packageNames %in% c(getPublicPackages(), getPrivatePackages())]
     data$Packages <- data$Packages[packageNames]
   }
   
@@ -90,27 +100,13 @@ getAvailableVersions <- function(as_date=FALSE) {
   return(retValue)
 }
 
-#' Configure options.
-#' 
-#' @return nothing
-#' @export
-configureOptions <- function() {
-  installTests <- "--install-tests"
-  options(INSTALL_opts.campsismod = installTests)
-  options(INSTALL_opts.campsis = installTests)
-  options(INSTALL_opts.campsisnca = installTests)
-  options(INSTALL_opts.campsismisc = installTests)
-  options(INSTALL_opts.campsistrans = installTests)
-  options(INSTALL_opts.campsisqual = installTests)
-}
-
 #'
 #' Get the private packages from the Campsis suite.
 #'
 #' @return a character vector of the private packages
 #'
 getPrivatePackages <- function() {
-  return(c("campsistrans", "calvamod"))
+  return(c("campsistrans", "ecampsis"))
 }
 
 #'

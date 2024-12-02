@@ -11,7 +11,7 @@ renv::init(repos=repos)
 renv::install(
   packages=c(
     "Calvagone/campsismod@v1.1.2",
-    "Calvagone/campsis@v1.5.5",
+    "campsis@1.5.5",
     "Calvagone/campsisnca@v1.5.1",
     "Calvagone/campsismisc@v0.5.2",
     "Calvagone/campsisqual@v1.3.0",

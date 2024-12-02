@@ -4,12 +4,14 @@
 \alias{restore}
 \title{Restore environment.}
 \usage{
-restore(version = getPackageVersion(), all = FALSE, ...)
+restore(version = getPackageVersion(), all = FALSE, no_deps = FALSE, ...)
 }
 \arguments{
 \item{version}{campsisverse version}
 
 \item{all}{all packages, included private ones, default is FALSE. Reserved for Calvagone members only.}
+
+\item{no_deps}{do not restore Campsis suite dependencies as specified in the lock file, default is FALSE.}
 
 \item{...}{extra arguments}
 }
