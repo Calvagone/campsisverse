@@ -62,8 +62,9 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   version_ <- tryCatch(
     processVersion(version),
     error = function(cond) {
-      yes <- utils::askYesNo(msg, default=TRUE)
-      if (is.TRUE(yes)) {
+      cat(cond$message)
+      yes <- utils::askYesNo("Do you want to update campsisverse?", default=TRUE)
+      if (isTRUE(yes)) {
         remotes::install_github("Calvagone/campsisverse")
         return(processVersion(version))
       } else {
