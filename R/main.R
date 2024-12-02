@@ -85,9 +85,10 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   }
   
   # Discard Campsis suite dependencies if argument no_deps is TRUE
+  # Note: mrgsolve and rxode2 are always included
   if (no_deps) {
     packageNames <- names(data$Packages)
-    packageNames <- packageNames[packageNames %in% c(getPublicPackages(), getPrivatePackages())]
+    packageNames <- packageNames[packageNames %in% getCampsisSuitePackages(include_engines=TRUE)]
     data$Packages <- data$Packages[packageNames]
   }
   
@@ -131,6 +132,23 @@ getPrivatePackages <- function() {
 #'
 getPublicPackages <- function() {
   return(c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual"))
+}
+
+#'
+#' Get all packages from the Campsis suite.
+#'
+#' @param include_engines include simulation engines (mrgsolve and rxode2), default is TRUE
+#' @return a character vector with the packages
+#' @export
+#'
+getCampsisSuitePackages <- function(include_engines=TRUE) {
+  retValue <- c(getPublicPackages(), getPrivatePackages())
+  if (include_engines) {
+    retValue <- retValue |>
+      append(c("mrgsolve", "rxode2"))
+  }
+  
+  return(retValue)
 }
 
 getPackageVersion <- function() {
