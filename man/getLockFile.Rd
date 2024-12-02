@@ -4,7 +4,12 @@
 \alias{getLockFile}
 \title{Get lock file.}
 \usage{
-getLockFile(version = getPackageVersion(), all = FALSE, no_deps = FALSE)
+getLockFile(
+  version = getPackageVersion(),
+  all = FALSE,
+  no_deps = FALSE,
+  prompt = TRUE
+)
 }
 \arguments{
 \item{version}{campsisverse version}
@@ -12,6 +17,8 @@ getLockFile(version = getPackageVersion(), all = FALSE, no_deps = FALSE)
 \item{all}{all packages, included private ones (authentication key needed), default is FALSE}
 
 \item{no_deps}{discard Campsis suite dependencies specified in the lock file, default is FALSE.}
+
+\item{prompt}{prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)}
 }
 \description{
 Get lock file.

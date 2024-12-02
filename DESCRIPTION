@@ -12,7 +12,9 @@ Depends:
     R (>= 4.0.0)
 Imports: 
     jsonlite,
-    renv
+    remotes,
+    renv,
+    utils
 Suggests:
     knitr,
     testthat

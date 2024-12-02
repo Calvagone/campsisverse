@@ -51,12 +51,26 @@ uninstall <- function() {
 #' @param version campsisverse version
 #' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @param no_deps discard Campsis suite dependencies specified in the lock file, default is FALSE.
+#' @param prompt prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)
 #' @importFrom renv load
 #' @importFrom jsonlite fromJSON toJSON
+#' @importFrom remotes install_github
+#' @importFrom utils askYesNo
 #' @export
 #'
-getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE) {
-  version_ <- processVersion(version)
+getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE) {
+  version_ <- tryCatch(
+    processVersion(version),
+    error = function(cond) {
+      yes <- utils::askYesNo(msg, default=TRUE)
+      if (is.TRUE(yes)) {
+        remotes::install_github("Calvagone/campsisverse")
+        return(processVersion(version))
+      } else {
+        stop("Operation cancelled.")
+      }
+    })
+  
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
   dataRaw <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version_))))
@@ -106,7 +120,7 @@ getAvailableVersions <- function(as_date=FALSE) {
 #' @return a character vector of the private packages
 #'
 getPrivatePackages <- function() {
-  return(c("campsistrans", "ecampsis"))
+  return(c("campsistrans"))
 }
 
 #'
