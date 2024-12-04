@@ -2,3 +2,59 @@
 ## Campsisverse
 
 The official R package manager of the Campsis suite.
+
+### Install Campsisverse
+
+Install the Campsisverse package with the following command:
+
+``` r
+remotes::install_github("Calvagone/campsisverse")
+```
+
+### Restore the Campsis suite
+
+Restoring the Campsis suite into your R distribution is easy. Just run
+the following command:
+
+``` r
+campsisverse::restore(version="24-12-01")
+```
+
+By executing this command, the whole Campsis suite is installed in your
+R distribution based on the `renv.lock` file dated on the 1st of
+December 2024, i.e., the latest Campsis snapshot available at the time
+of writing. Thanks to this file, the Campsis suite is restored with the
+exact versions of the packages that were used to create the snapshot.
+
+Specific versions of the Campsis suite can be restored by specifying the
+`version` argument. This importantly ensures the reproducibility of your
+simulation scripts over time.
+
+In case you want the Campsis dependencies (e.g. `dplyr`, `ggplot`, etc.)
+to be installed without specific versions, use the `no_deps` argument.
+When `no_deps` is TRUE, only the Campsis packages are installed with the
+versions specified in the lock file. This argument may be useful if your
+R distribution points to a snapshot repository and you must stick to a
+snapshot date.
+
+``` r
+campsisverse::restore(version="24-12-01", no_deps=TRUE)
+```
+
+Please be aware that setting `no_deps` to TRUE may cause unexpected
+behavior of some Campsis packages. In any case, we recommend using our
+qualification package to validate the correct functioning of Campsis.
+Please visit the [Campsisqual
+repository](https://github.com/Calvagone/campsisqual) for more
+information.
+
+### Running the Campsis suite in a sandbox with renv
+
+The Campsis suite can be run in a sandbox environment using the `use`
+function. This function is useful when you want to run the Campsis suite
+in a temporary environment without affecting your current R
+distribution.
+
+``` r
+campsisverse::use(version="24-12-01")
+```
