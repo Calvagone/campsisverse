@@ -4,7 +4,10 @@
 \alias{uninstall}
 \title{Uninstall the Campsis suite.}
 \usage{
-uninstall()
+uninstall(all = FALSE)
+}
+\arguments{
+\item{all}{all packages included private ones, default is FALSE}
 }
 \description{
 Uninstall the Campsis suite.

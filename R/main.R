@@ -1,3 +1,35 @@
+#'
+#' Install the Campsis suite into your R distribution.
+#' Please note the installation will occur in 2 steps:
+#' 1. Campsis packages will be installed with their tests
+#' 2. Extra packages (mrgsolve, rxode2, etc.) will be downloaded in their binary form and installed
+#'
+#' @param ... extra arguments passed to renv::install
+#' @param cran install Campsis packages from CRAN when possible, default is TRUE
+#' @importFrom renv install
+#' @export
+#'
+install <- function(..., cran=TRUE) {
+  options(INSTALL_opts="--install-tests")
+  packages <- c(
+    sprintf("%scampsismod", ifelse(cran, "", "Calvagone/")),
+    sprintf("%scampsis", ifelse(cran, "", "Calvagone/")),
+    "Calvagone/campsisnca",
+    "Calvagone/campsismisc",
+    "Calvagone/campsisqual"
+  )
+  # Set type to 'source', otherwise tests are not installed when packages come from CRAN
+  renv::install(packages=packages, type="source", ...)
+  extras <- c(
+    "mrgsolve",
+    "rxode2",
+    "ncappc", # Campsisnca testing only
+    "xgxr",
+    "cowplot",
+    "ragg"
+  )
+  renv::install(packages=extras, ...)
+}
 
 #'
 #' Restore environment.
@@ -34,10 +66,14 @@ use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
 #'
 #' Uninstall the Campsis suite.
 #'
+#' @param all all packages included private ones, default is FALSE
 #' @export
 #'
-uninstall <- function() {
-  packages <- c(getPublicPackages(), getPrivatePackages())
+uninstall <- function(all=FALSE) {
+  packages <- getPublicPackages()
+  if (all) {
+    packages <- c(packages, getPrivatePackages())
+  }
   for (package in packages) {
     if (length(find.package(package, quiet=TRUE)) > 0) {
       remove.packages(package)
