@@ -1,9 +1,9 @@
 
-## Campsisverse
+# campsisverse <img src='man/figures/logo.png' align="right" alt="" width="120" />
 
 The official R package manager of the Campsis suite.
 
-### Install Campsisverse
+## Install Campsisverse
 
 Install the Campsisverse package with the following command:
 
@@ -11,7 +11,7 @@ Install the Campsisverse package with the following command:
 remotes::install_github("Calvagone/campsisverse")
 ```
 
-### Restore the Campsis suite
+## Restore the Campsis suite
 
 Restoring the Campsis suite into your R distribution is easy. Just run
 the following command:
@@ -48,7 +48,7 @@ Please visit the [Campsisqual
 repository](https://github.com/Calvagone/campsisqual) for more
 information.
 
-### Running the Campsis suite in a sandbox with renv
+## Running the Campsis suite in a sandbox with renv
 
 The Campsis suite can be run in a sandbox environment using the `use`
 function. This function is useful when you want to run the Campsis suite
