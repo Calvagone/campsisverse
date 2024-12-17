@@ -104,13 +104,14 @@ information.
 
 ### Using the ‘restore’ function within your renv project
 
-You can initialise and activate a renv project by typing:
+Initialize a new project (with an empty R library) by typing the
+following command in your R console:
 
 ``` r
-renv::init()
+renv::init(bare=TRUE)
 ```
 
-Then, you can restore the Campsis suite into your project by running:
+Then, restore the Campsis suite into your project as follows:
 
 ``` r
 renv::install("Calvagone/campsisverse")
