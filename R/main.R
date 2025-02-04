@@ -1,5 +1,7 @@
 #'
 #' Install the Campsis suite into your R distribution.
+#' 
+#' @description
 #' Please note the installation will occur in 2 steps:
 #' 1. Campsis packages will be installed with their tests
 #' 2. Extra packages (mrgsolve, rxode2, etc.) will be downloaded in their binary form and installed
