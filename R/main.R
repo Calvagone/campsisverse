@@ -37,14 +37,15 @@ install <- function(..., cran=TRUE) {
 #' @param version campsisverse version
 #' @param all all packages, included private ones, default is FALSE. Reserved for Calvagone members only.
 #' @param no_deps do not restore Campsis suite dependencies as specified in the lock file, default is FALSE.
+#' @param library library paths to be used during restore, default is \code{.libPaths()}
 #' @param ... extra arguments
 #' @importFrom renv restore
 #' @export
 #'
-restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
+restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, library=.libPaths(), ...) {
   options(INSTALL_opts="--install-tests")
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::restore(lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
+  suppressWarnings(renv::restore(library=library, lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
 }
 
 #'
