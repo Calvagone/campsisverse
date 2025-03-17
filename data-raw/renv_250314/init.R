@@ -1,4 +1,4 @@
-repos <- "https://packagemanager.posit.co/cran/2025-02-09"
+repos <- "https://packagemanager.posit.co/cran/2025-03-14"
 options(repos=repos)
 
 # Install correct version of renv
@@ -17,7 +17,7 @@ options(INSTALL_opts="--install-tests")
 # Install and snapshot (lock=TRUE)
 renv::install(
   packages=c(
-    "Calvagone/campsismod@v1.2.0",
+    "Calvagone/campsismod@v1.2.1",
     "Calvagone/campsis@v1.6.0",
     "Calvagone/campsisnca@v1.5.1",
     "Calvagone/campsismisc@v0.5.2",
