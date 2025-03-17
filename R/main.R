@@ -63,7 +63,7 @@ restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, libra
 use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
   options(INSTALL_opts="--install-tests")
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
+  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all, no_deps=no_deps, discard_renv=TRUE), ...))
 }
 
 #'
@@ -91,13 +91,14 @@ uninstall <- function(all=FALSE) {
 #' @param all all packages, included private ones (authentication key needed), default is FALSE
 #' @param no_deps discard Campsis suite dependencies specified in the lock file, default is FALSE.
 #' @param prompt prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)
+#' @param discard_renv discard renv package from the lock file, default is FALSE
 #' @importFrom renv load
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom remotes install_github
 #' @importFrom utils askYesNo
 #' @export
 #'
-getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE) {
+getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
   version_ <- tryCatch(
     processVersion(version),
     error = function(cond) {
@@ -120,6 +121,13 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   if (!all) {
     packageNames <- names(data$Packages)
     packageNames <- packageNames[!packageNames %in% getPrivatePackages()]
+    data$Packages <- data$Packages[packageNames]
+  }
+  
+  # Discard renv package
+  if (discard_renv) {
+    packageNames <- names(data$Packages)
+    packageNames <- packageNames[!packageNames %in% "renv"]
     data$Packages <- data$Packages[packageNames]
   }
   
