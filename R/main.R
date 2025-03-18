@@ -94,8 +94,6 @@ uninstall <- function(all=FALSE) {
 #' @param prompt prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)
 #' @param discard_renv discard renv package from the lock file, default is FALSE
 #' @importFrom renv load
-#' @importFrom remotes install_github
-#' @importFrom utils askYesNo
 #' @export
 #'
 getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
@@ -103,13 +101,6 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
     processVersion(version),
     error = function(cond) {
       cat(cond$message)
-      yes <- utils::askYesNo("Do you want to update campsisverse?", default=TRUE)
-      if (isTRUE(yes)) {
-        remotes::install_github("Calvagone/campsisverse")
-        return(processVersion(version))
-      } else {
-        stop("Operation cancelled.")
-      }
     })
   
   filePath <- tempfile(fileext=".lock")
@@ -121,25 +112,34 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
 
   # Discard private packages if argument all is FALSE
   if (!all) {
+    packages <- detectPackages(dataRaw)
     for (package in getPrivatePackages()) {
-      dataRaw <- removePackageFromRaw(dataRaw, package)
+      dataRaw <- removePackageFromRaw(dataRaw, package, last=packages[length(packages)]==package)
     }
   }
   
   # Discard renv package
   if (discard_renv) {
-    dataRaw <- removePackageFromRaw(dataRaw, "renv")
+    packages <- detectPackages(dataRaw)
+    dataRaw <- removePackageFromRaw(dataRaw, "renv", last=packages[length(packages)]==package)
   }
   
   # Discard Campsis suite dependencies if argument no_deps is TRUE
   # Note: mrgsolve and rxode2 are always included
-  # if (no_deps) {
-  #   packageNames <- names(data$Packages)
-  #   packageNames <- packageNames[packageNames %in% getCampsisSuitePackages(include_engines=TRUE)]
-  #   data$Packages <- data$Packages[packageNames]
-  # }
+  if (no_deps) {
+    packages <- detectPackages(dataRaw)
+    campsisSuitePackages <- getCampsisSuitePackages(include_engines=TRUE)
+    for (package in packages) {
+      if (!package %in% campsisSuitePackages) {
+        # print(sprintf("Removing package %s", package))
+        dataRaw <- removePackageFromRaw(dataRaw, package, last=packages[length(packages)]==package)
+      }
+    }
+  }
   
-  # json <- jsonlite::toJSON(data, auto_unbox=TRUE, pretty=TRUE)
+  # Possibly get rid of comma for last package
+  dataRaw <- noCommaForLastPackage(dataRaw)
+  
   writeLines(dataRaw, fileConn)
   close(fileConn)
   
@@ -149,22 +149,58 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
 processVersion <- function(version) {
   version_ <- gsub(pattern="[\\.-]", replacement="", x=version)
   if (!version_ %in% getAvailableVersions()) {
-    stop(sprintf("Version %s is not available. Available versions are: %s", version, paste(getAvailableVersions(as_date=TRUE), collapse=", ")))
+    stop(sprintf("Version %s is not available. Available versions are: %s. Please run remotes::install_github(\"Calvagone/campsisverse\") to update Campsisverse",
+                 version, paste(getAvailableVersions(as_date=TRUE), collapse=", ")))
   }
   return(version_)
 }
 
-removePackageFromRaw <- function(raw, package) {
+removePackageFromRaw <- function(raw, package, last) {
+
   # Detect package start
   start <- which(grepl(pattern=sprintf("^[[:space:]]+\"%s\":[[:space:]]+\\{[[:space:]]*$", package), x=raw))
   
   # Detect package end
-  end <- which(grepl(pattern="^[[:space:]]+\\},[[:space:]]*$", x=raw))
+  if (last) {
+    end <- which(grepl(pattern="^[[:space:]]+\\}[[:space:]]*$", x=raw))
+  } else {
+    end <- which(grepl(pattern="^[[:space:]]+\\},[[:space:]]*$", x=raw))
+  }
   end <- end[which(end > start)][1]
   
   # Remove package
   raw <- raw[-c(start:end)]
   
+  return(raw)
+}
+
+detectPackages <- function(raw) {
+  # Detect start of packages
+  start <- which(grepl(pattern="^[[:space:]]+\"Packages\":[[:space:]]+\\{[[:space:]]*$", x=raw))
+  
+  # Detect all packages from json
+  tmp <- which(grepl(pattern="^[[:space:]]+\"[a-zA-Z0-9]+\":[[:space:]]+\\{[[:space:]]*$", x=raw))
+  
+  # Skip occurrences before the start of packages
+  tmp <- tmp[tmp > start]
+  packages <- gsub(pattern="[\" \\{:]", replacement="", raw[tmp])
+  
+  return(packages)
+}
+
+noCommaForLastPackage <- function(raw) {
+  packages <- detectPackages(raw)
+  lastPackage <- packages[length(packages)]
+  
+  # Detect package start
+  start <- which(grepl(pattern=sprintf("^[[:space:]]+\"%s\":[[:space:]]+\\{[[:space:]]*$", lastPackage), x=raw))
+  
+  # Detect package end
+  end <- which(grepl(pattern="^[[:space:]]+\\},?[[:space:]]*$", x=raw))
+  end <- end[which(end > start)][1]
+
+  # Remove comma
+  raw[end] <- gsub(pattern=",", replacement="", x=raw[end])
   return(raw)
 }
 
