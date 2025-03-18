@@ -62,8 +62,9 @@ restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, libra
 #'
 use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
   options(INSTALL_opts="--install-tests")
+  lockfile <- getLockFile(version=version, all=all, no_deps=no_deps, discard_renv=TRUE)
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::use(lockfile=getLockFile(version=version, all=all, no_deps=no_deps, discard_renv=TRUE), ...))
+  suppressWarnings(renv::use(lockfile=lockfile, ...))
 }
 
 #'
@@ -93,7 +94,6 @@ uninstall <- function(all=FALSE) {
 #' @param prompt prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)
 #' @param discard_renv discard renv package from the lock file, default is FALSE
 #' @importFrom renv load
-#' @importFrom jsonlite fromJSON toJSON
 #' @importFrom remotes install_github
 #' @importFrom utils askYesNo
 #' @export
@@ -114,33 +114,33 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
-  dataRaw <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version_))))
-  data <- jsonlite::fromJSON(txt=dataRaw)
+  dataRawTmp <- eval(parse(text=sprintf("campsisverse::%s", paste0("renv_lock_", version_))))
   
+  # Large character vector
+  dataRaw <- strsplit(dataRawTmp, split="\r\n")[[1]]
+
   # Discard private packages if argument all is FALSE
   if (!all) {
-    packageNames <- names(data$Packages)
-    packageNames <- packageNames[!packageNames %in% getPrivatePackages()]
-    data$Packages <- data$Packages[packageNames]
+    for (package in getPrivatePackages()) {
+      dataRaw <- removePackageFromRaw(dataRaw, package)
+    }
   }
   
   # Discard renv package
   if (discard_renv) {
-    packageNames <- names(data$Packages)
-    packageNames <- packageNames[!packageNames %in% "renv"]
-    data$Packages <- data$Packages[packageNames]
+    dataRaw <- removePackageFromRaw(dataRaw, "renv")
   }
   
   # Discard Campsis suite dependencies if argument no_deps is TRUE
   # Note: mrgsolve and rxode2 are always included
-  if (no_deps) {
-    packageNames <- names(data$Packages)
-    packageNames <- packageNames[packageNames %in% getCampsisSuitePackages(include_engines=TRUE)]
-    data$Packages <- data$Packages[packageNames]
-  }
+  # if (no_deps) {
+  #   packageNames <- names(data$Packages)
+  #   packageNames <- packageNames[packageNames %in% getCampsisSuitePackages(include_engines=TRUE)]
+  #   data$Packages <- data$Packages[packageNames]
+  # }
   
-  json <- jsonlite::toJSON(data, auto_unbox=TRUE, pretty=TRUE)
-  writeLines(gsub(pattern="\r", replacement="", x=json), sep="", fileConn)
+  # json <- jsonlite::toJSON(data, auto_unbox=TRUE, pretty=TRUE)
+  writeLines(dataRaw, fileConn)
   close(fileConn)
   
   return(filePath)
@@ -152,6 +152,20 @@ processVersion <- function(version) {
     stop(sprintf("Version %s is not available. Available versions are: %s", version, paste(getAvailableVersions(as_date=TRUE), collapse=", ")))
   }
   return(version_)
+}
+
+removePackageFromRaw <- function(raw, package) {
+  # Detect package start
+  start <- which(grepl(pattern=sprintf("^[[:space:]]+\"%s\":[[:space:]]+\\{[[:space:]]*$", package), x=raw))
+  
+  # Detect package end
+  end <- which(grepl(pattern="^[[:space:]]+\\},[[:space:]]*$", x=raw))
+  end <- end[which(end > start)][1]
+  
+  # Remove package
+  raw <- raw[-c(start:end)]
+  
+  return(raw)
 }
 
 getAvailableVersions <- function(as_date=FALSE) {
