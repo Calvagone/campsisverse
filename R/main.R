@@ -96,11 +96,7 @@ uninstall <- function(all=FALSE) {
 #' @export
 #'
 getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
-  version_ <- tryCatch(
-    processVersion(version),
-    error = function(cond) {
-      stop(cond$message)
-    })
+  version_ <- processVersion(version)
   
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
@@ -148,7 +144,7 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
 processVersion <- function(version) {
   version_ <- gsub(pattern="[\\.-]", replacement="", x=version)
   if (!version_ %in% getAvailableVersions()) {
-    stop(sprintf("Version %s is not available. Available versions are: %s. Please run remotes::install_github(\"Calvagone/campsisverse\") to update Campsisverse",
+    stop(sprintf("Version %s is not available. Available versions are: %s. Please run remotes::install_github(\"Calvagone/campsisverse\") to update Campsisverse.",
                  version, paste(getAvailableVersions(as_date=TRUE), collapse=", ")))
   }
   return(version_)
