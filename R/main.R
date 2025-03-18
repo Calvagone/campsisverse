@@ -93,14 +93,13 @@ uninstall <- function(all=FALSE) {
 #' @param no_deps discard Campsis suite dependencies specified in the lock file, default is FALSE.
 #' @param prompt prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)
 #' @param discard_renv discard renv package from the lock file, default is FALSE
-#' @importFrom renv load
 #' @export
 #'
 getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
   version_ <- tryCatch(
     processVersion(version),
     error = function(cond) {
-      cat(cond$message)
+      stop(cond$message)
     })
   
   filePath <- tempfile(fileext=".lock")
