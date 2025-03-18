@@ -71,6 +71,7 @@ use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
 #' Uninstall the Campsis suite.
 #'
 #' @param all all packages included private ones, default is FALSE
+#' @importFrom utils remove.packages
 #' @export
 #'
 uninstall <- function(all=FALSE) {
@@ -80,7 +81,7 @@ uninstall <- function(all=FALSE) {
   }
   for (package in packages) {
     if (length(find.package(package, quiet=TRUE)) > 0) {
-      remove.packages(package)
+      utils::remove.packages(package)
     }
   }
 }
@@ -197,15 +198,6 @@ noCommaForLastPackage <- function(raw) {
   # Remove comma
   raw[end] <- gsub(pattern=",", replacement="", x=raw[end])
   return(raw)
-}
-
-getAvailableVersions <- function(as_date=FALSE) {
-  dataItems <- as.character(data(package="campsisverse")[["results"]][,"Item"])
-  retValue <- gsub("renv_lock_", "", dataItems)
-  if (as_date) {
-    retValue <- gsub(pattern="(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)", replacement="\\1\\2-\\3\\4-\\5\\6", x=retValue)
-  }
-  return(retValue)
 }
 
 #'

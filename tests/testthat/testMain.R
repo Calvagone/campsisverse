@@ -19,10 +19,9 @@ test_that("Method 'getCampsisSuitePackages' works as expected", {
   expect_equal(getCampsisSuitePackages(include_engines=FALSE), c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual", "campsistrans"))
 })
 
-
-
 test_that("Test the renv.lock file dated 250209", {
   version <- "250209"
+  expect_true(version %in% getAvailableVersions())
   
   # All packages
   raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=FALSE))
@@ -43,6 +42,7 @@ test_that("Test the renv.lock file dated 250209", {
 
 test_that("Test the renv.lock file dated 250314", {
   version <- "250314"
+  expect_true(version %in% getAvailableVersions())
   
   # All packages
   raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=FALSE))

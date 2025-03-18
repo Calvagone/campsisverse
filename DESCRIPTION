@@ -13,7 +13,7 @@ Depends:
 Imports: 
     renv,
 Suggests:
-    testthat
+    testthat, utils
 Encoding: UTF-8
 Language: en-US
 LazyData: true
