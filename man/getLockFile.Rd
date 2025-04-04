@@ -8,7 +8,8 @@ getLockFile(
   version = getPackageVersion(),
   all = FALSE,
   no_deps = FALSE,
-  prompt = TRUE
+  prompt = TRUE,
+  discard_renv = FALSE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ getLockFile(
 \item{no_deps}{discard Campsis suite dependencies specified in the lock file, default is FALSE.}
 
 \item{prompt}{prompt the user for input, default is TRUE (e.g. if campsisverse must be updated)}
+
+\item{discard_renv}{discard renv package from the lock file, default is FALSE}
 }
 \description{
 Get lock file.

@@ -1,7 +1,7 @@
 Type: Package
 Package: campsisverse
 Title: The official R package manager of the Campsis suite
-Version: 25.02.09
+Version: 25.03.29
 Authors@R: 
     person("Nicolas", "Luyckx", , "nicolas.luyckx@calvagone.com", role = c("aut", "cre"))
 Description: Easy installation and management of the Campsis suite.
@@ -11,15 +11,9 @@ BugReports: https://github.com/Calvagone/campsisverse/issues
 Depends: 
     R (>= 4.0.0)
 Imports: 
-    jsonlite,
-    remotes,
     renv,
-    utils
 Suggests:
-    knitr,
-    testthat
-VignetteBuilder: 
-    knitr
+    testthat, utils
 Encoding: UTF-8
 Language: en-US
 LazyData: true

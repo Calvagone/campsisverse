@@ -59,7 +59,7 @@ in a temporary environment without affecting your current R
 distribution.
 
 ``` r
-campsisverse::use(version="24-12-01")
+campsisverse::use(version="25-03-29")
 ```
 
 By executing this command, the whole Campsis suite is installed in a
@@ -75,7 +75,7 @@ Restoring the Campsis suite into your current R distribution is easy.
 Just run the following command:
 
 ``` r
-campsisverse::restore(version="24-12-01")
+campsisverse::restore(version="25-03-29")
 ```
 
 In interactive mode, and if you don’t want to activate a renv project,
@@ -92,7 +92,7 @@ Campsis packages are installed with the versions specified in the lock
 file.
 
 ``` r
-campsisverse::restore(version="24-12-01", no_deps=TRUE)
+campsisverse::restore(version="25-03-29", no_deps=TRUE)
 ```
 
 Please be aware that setting `no_deps` to TRUE may cause unexpected
@@ -115,7 +115,7 @@ Then, restore the Campsis suite into your project as follows:
 
 ``` r
 renv::install("Calvagone/campsisverse")
-campsisverse::restore(version="24-12-01")
+campsisverse::restore(version="25-03-29")
 ```
 
 The Campsis packages can then be loaded to run your simulation scripts.
