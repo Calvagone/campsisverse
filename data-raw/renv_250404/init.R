@@ -18,10 +18,10 @@ options(INSTALL_opts="--install-tests")
 renv::install(
   packages=c(
     "Calvagone/campsismod@v1.2.2",
-    "Calvagone/campsis@v1.6.0",
+    "Calvagone/campsis@v1.7.0",
     "Calvagone/campsisnca@v1.5.1",
     "Calvagone/campsismisc@v0.5.2",
-    "Calvagone/campsisqual@v1.3.2",
+    "Calvagone/campsisqual@v1.3.3",
     "Calvagone/campsistrans@v1.2.3",
     "mrgsolve@1.5.1", # See https://github.com/Calvagone/campsis/issues/160
     "rxode2",

@@ -1307,7 +1307,7 @@
     },
     "campsis": {
       "Package": "campsis",
-      "Version": "1.6.0",
+      "Version": "1.7.0",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Generic PK/PD Simulation Platform CAMPSIS",
@@ -1357,15 +1357,15 @@
       "Language": "en-US",
       "LazyData": "true",
       "RoxygenNote": "7.3.2",
-      "Collate": "'global.R' 'utilities.R' 'time_utilities.R' 'check.R' 'generic.R' 'data.R' 'seed.R' 'distribution.R' 'dataset_config.R' 'time_entry.R' 'occasion.R' 'occasions.R' 'treatment_iov.R' 'treatment_iovs.R' 'dose_adaptation.R' 'dose_adaptations.R' 'treatment_entry.R' 'treatment.R' 'observations.R' 'observations_set.R' 'covariate.R' 'covariates.R' 'bootstrap.R' 'protocol.R' 'arm.R' 'arms.R' 'event.R' 'events.R' 'scenario.R' 'scenarios.R' 'simulation_engine.R' 'dataset.R' 'event_logic.R' 'dataset_summary.R' 'outfun.R' 'hardware_settings.R' 'simulation_progress.R' 'solver_settings.R' 'nocb_settings.R' 'declare_settings.R' 'progress_settings.R' 'internal_settings.R' 'simulation_settings.R' 'plan_setup.R' 'simulate_preprocess.R' 'simulate.R' 'results_processing.R' 'default_plot.R'",
+      "Collate": "'global.R' 'utilities.R' 'time_utilities.R' 'check.R' 'generic.R' 'data.R' 'seed.R' 'distribution.R' 'dataset_config.R' 'time_entry.R' 'repeated_schedule.R' 'occasion.R' 'occasions.R' 'treatment_iov.R' 'treatment_iovs.R' 'dose_adaptation.R' 'dose_adaptations.R' 'treatment_entry.R' 'treatment.R' 'observations.R' 'observations_set.R' 'covariate.R' 'covariates.R' 'bootstrap.R' 'protocol.R' 'arm.R' 'arms.R' 'event.R' 'events.R' 'scenario.R' 'scenarios.R' 'simulation_engine.R' 'dataset.R' 'event_logic.R' 'dataset_summary.R' 'outfun.R' 'hardware_settings.R' 'simulation_progress.R' 'solver_settings.R' 'nocb_settings.R' 'declare_settings.R' 'progress_settings.R' 'internal_settings.R' 'simulation_settings.R' 'plan_setup.R' 'simulate_preprocess.R' 'simulate.R' 'results_processing.R' 'default_plot.R'",
       "Author": "Nicolas Luyckx [aut, cre]",
       "Maintainer": "Nicolas Luyckx <nicolas.luyckx@calvagone.com>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsis",
-      "RemoteRef": "v1.6.0",
-      "RemoteSha": "0299cc5cfe8adf81d442989d35283921bf5e3eb1"
+      "RemoteRef": "v1.7.0",
+      "RemoteSha": "d7dfe3e907ae28f5ccd2a8cb638d8daf75254cb9"
     },
     "campsismisc": {
       "Package": "campsismisc",
@@ -1535,7 +1535,7 @@
     },
     "campsisqual": {
       "Package": "campsisqual",
-      "Version": "1.3.2",
+      "Version": "1.3.3",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Campsis Qualification Package",
@@ -1595,8 +1595,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsisqual",
-      "RemoteRef": "v1.3.2",
-      "RemoteSha": "ac160b613848e9edd4a92f5f4328acd734dd22b1"
+      "RemoteRef": "v1.3.3",
+      "RemoteSha": "8dc42dbe333c0ef768460b41b25788ec577fa4ce"
     },
     "campsistrans": {
       "Package": "campsistrans",
