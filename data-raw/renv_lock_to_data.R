@@ -10,3 +10,6 @@ usethis::use_data(renv_lock_250314, overwrite=TRUE)
 
 renv_lock_250329 <- readr::read_file("data-raw/renv_250329/renv.lock")
 usethis::use_data(renv_lock_250329, overwrite=TRUE)
+
+renv_lock_250404 <- readr::read_file("data-raw/renv_250404/renv.lock")
+usethis::use_data(renv_lock_250404, overwrite=TRUE)
