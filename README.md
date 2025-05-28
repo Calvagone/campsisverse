@@ -59,15 +59,15 @@ in a temporary environment without affecting your current R
 distribution.
 
 ``` r
-campsisverse::use(version="25-03-29")
+campsisverse::use(version="25-04-04")
 ```
 
 By executing this command, the whole Campsis suite is installed in a
-temporary R environment based on the `renv.lock` file dated on the 1st
-of December 2024, i.e., the latest Campsis snapshot available at the
-time of writing. Thanks to this file, packages are restored with the
-exact versions specified in the snapshot and your Campsis script should
-run without any issues.
+temporary R environment based on the `renv.lock` file dated on the 4th
+of April 2025, i.e., the latest Campsis snapshot available at the time
+of writing. Thanks to this file, packages are restored with the exact
+versions specified in the snapshot and your Campsis script should run
+without any issues.
 
 ### Using the ‘restore’ function within your R distribution
 
@@ -75,14 +75,14 @@ Restoring the Campsis suite into your current R distribution is easy.
 Just run the following command:
 
 ``` r
-campsisverse::restore(version="25-03-29")
+campsisverse::restore(version="25-04-04")
 ```
 
 In interactive mode, and if you don’t want to activate a renv project,
 click 2 (’Do not activate the project and use the current library
 paths). In this case, the whole Campsis suite is restored into your R
 distribution based on the package versions specified in the `renv.lock`
-file dated on the 1st of December 2024. Note that some of your previous
+file dated on the 4th of April 2025. Note that some of your previous
 packages may be downgraded or upgraded during the restoration process.
 
 In case you do not want to install the Campsis dependencies
@@ -92,7 +92,7 @@ Campsis packages are installed with the versions specified in the lock
 file.
 
 ``` r
-campsisverse::restore(version="25-03-29", no_deps=TRUE)
+campsisverse::restore(version="25-04-04", no_deps=TRUE)
 ```
 
 Please be aware that setting `no_deps` to TRUE may cause unexpected
@@ -115,7 +115,7 @@ Then, restore the Campsis suite into your project as follows:
 
 ``` r
 renv::install("Calvagone/campsisverse")
-campsisverse::restore(version="25-03-29")
+campsisverse::restore(version="25-04-04")
 ```
 
 The Campsis packages can then be loaded to run your simulation scripts.
