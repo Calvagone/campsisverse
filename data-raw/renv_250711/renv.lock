@@ -1425,7 +1425,7 @@
     },
     "campsismod": {
       "Package": "campsismod",
-      "Version": "1.2.2",
+      "Version": "1.2.3",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Generic Implementation of a PK/PD Model",
@@ -1473,8 +1473,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsismod",
-      "RemoteRef": "v1.2.2",
-      "RemoteSha": "0938eb0107c43cc950b24972d2f761f2739a8d76"
+      "RemoteRef": "v1.2.3",
+      "RemoteSha": "aa7aa4ff50dd0e2f5f144e922301dd54d71a5a18"
     },
     "campsisnca": {
       "Package": "campsisnca",
@@ -1535,7 +1535,7 @@
     },
     "campsisqual": {
       "Package": "campsisqual",
-      "Version": "1.3.3",
+      "Version": "1.4.0",
       "Source": "GitHub",
       "Type": "Package",
       "Title": "Campsis Qualification Package",
@@ -1545,9 +1545,9 @@
       "URL": "https://github.com/Calvagone/campsisqual",
       "BugReports": "https://github.com/Calvagone/campsisqual/issues",
       "Depends": [
-        "campsis (>= 1.4.0)",
-        "campsismod (>= 1.0.0)",
-        "R (>= 4.0.0)"
+        "campsis",
+        "campsismod",
+        "R (>= 4.1.0)"
       ],
       "Imports": [
         "assertthat",
@@ -1555,9 +1555,9 @@
         "dplyr",
         "foreach",
         "ggplot2",
-        "gridExtra",
         "jsonlite",
         "kableExtra",
+        "magrittr",
         "openssl",
         "parallel",
         "pbmcapply",
@@ -1588,25 +1588,25 @@
       "Language": "en-US",
       "LazyData": "true",
       "RoxygenNote": "7.3.2",
-      "Collate": "'tinytex.R' 'qualification_suite_credentials.R' 'qualification_suite.R' 'dataset.R' 'installation_qualification.R' 'nonmem_results_parser.R' 'pki.R' 'qualification_summary.R' 'qualification_core.R' 'qualify.R' 'risk_metrics.R'",
+      "Collate": "'data.R' 'special_operators.R' 'tinytex.R' 'qualification_suite_credentials.R' 'qualification_suite.R' 'dataset.R' 'installation_qualification.R' 'nonmem_results_parser.R' 'pki.R' 'qualification_summary.R' 'qualification_core.R' 'qualify.R' 'risk_metrics.R'",
       "Author": "Nicolas Luyckx [aut, cre]",
       "Maintainer": "Nicolas Luyckx <nicolas.luyckx@calvagone.com>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsisqual",
-      "RemoteRef": "v1.3.3",
-      "RemoteSha": "8dc42dbe333c0ef768460b41b25788ec577fa4ce"
+      "RemoteRef": "v1.4.0",
+      "RemoteSha": "9806c516b1e01bc262207d1fe15aa294076d2cf3"
     },
     "campsistrans": {
       "Package": "campsistrans",
-      "Version": "1.2.3",
+      "Version": "1.4.0",
       "Source": "GitHub",
       "Type": "Package",
-      "Title": "Campsis Transformation Package (NONMEM -> Campsis)",
+      "Title": "Campsis Transformation Package (NONMEM/Monolix/rxode2 -> Campsis)",
       "Authors@R": "person(\"Nicolas\", \"Luyckx\", , \"nicolas.luyckx@calvagone.com\", role = c(\"aut\", \"cre\"))",
-      "Description": "Wrapper to pharmpy for NONMEM import.",
-      "License": "file LICENSE",
+      "Description": "Imports pharmacometric models from various sources (NONMEM/Monolix/rxode2) into Campsis.",
+      "License": "GPL (>= 3)",
       "URL": "https://github.com/Calvagone/campsistrans",
       "BugReports": "https://github.com/Calvagone/campsistrans/issues",
       "Depends": [
@@ -1617,12 +1617,17 @@
         "assertthat",
         "callr",
         "config",
+        "digest",
         "dplyr",
-        "plyr",
+        "magrittr",
+        "methods",
+        "monolix2rx",
+        "nonmem2rx",
         "purrr",
         "reticulate",
+        "rly",
         "tibble",
-        "tidyr"
+        "utils"
       ],
       "Suggests": [
         "bookdown",
@@ -1644,16 +1649,16 @@
       "Language": "en-US",
       "LazyData": "true",
       "RoxygenNote": "7.3.2",
-      "Collate": "'requirements.R' 'python_configuration.R' 'data.R' 'model_library.R' 'utilities.R' 'auto_extract_parameters.R' 'nonmem_table_parser.R' 'nonmem_dataset_parser.R' 'nonmem_qualification_prep.R' 'nonmem_domain.R' 'substitute_duplicates.R' 'campsistrans.R' 'symbol_conversion.R' 'model_conversion.R' 'parameters_conversion.R' 'varcov_conversion.R' 'auto_mapping.R'",
+      "Collate": "'global.R' 'special_operators.R' 'requirements.R' 'pharmpy_config.R' 'data.R' 'model_library.R' 'utilities.R' 'caret_to_pow.R' 'auto_extract_parameters.R' 'nonmem_table_parser.R' 'nonmem_block.R' 'nonmem_dataset_parser.R' 'nonmem_predictions_parser.R' 'nonmem_qualification_prep.R' 'nonmem_domain.R' 'substitute_duplicates.R' 'campsistrans.R' 'symbol_conversion.R' 'model_conversion.R' 'parameters_conversion.R' 'varcov_conversion.R' 'auto_mapping.R' 'model_extended_if_statement.R' 'complex_if_statement.R' 'error_model_rxode2.R' 'error_model_rxode2_parser.R' 'rxode2_parser.R' 'rxode2_varcov_conversion.R' 'import_from_rxode2.R' 'import_from_monolix.R' 'import_from_nonmem.R'",
       "Author": "Nicolas Luyckx [aut, cre]",
       "Maintainer": "Nicolas Luyckx <nicolas.luyckx@calvagone.com>",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Calvagone",
       "RemoteRepo": "campsistrans",
-      "RemoteRef": "v1.2.3",
-      "RemoteSha": "45e55e92c509a5dad8aa9d90097ac9513fab5a13",
-      "Remotes": "github::Calvagone/campsismod"
+      "RemoteRef": "v1.4.0",
+      "RemoteSha": "af9485e5c1ef734ecf58412b7272cc77ac742b2b",
+      "Remotes": "github::Calvagone/campsismod, github::Calvagone/campsisqual"
     },
     "cards": {
       "Package": "cards",
@@ -3062,6 +3067,35 @@
       "Maintainer": "R Core Team <R-core@R-project.org>",
       "Repository": "CRAN"
     },
+    "formatR": {
+      "Package": "formatR",
+      "Version": "1.14",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Format R Code Automatically",
+      "Authors@R": "c( person(\"Yihui\", \"Xie\", role = c(\"aut\", \"cre\"), email = \"xie@yihui.name\", comment = c(ORCID = \"0000-0003-0645-5666\")), person(\"Ed\", \"Lee\", role = \"ctb\"), person(\"Eugene\", \"Ha\", role = \"ctb\"), person(\"Kohske\", \"Takahashi\", role = \"ctb\"), person(\"Pavel\", \"Krivitsky\", role = \"ctb\"), person() )",
+      "Description": "Provides a function tidy_source() to format R source code. Spaces and indent will be added to the code automatically, and comments will be preserved under certain conditions, so that R code will be more human-readable and tidy. There is also a Shiny app as a user interface in this package (see tidy_app()).",
+      "Depends": [
+        "R (>= 3.2.3)"
+      ],
+      "Suggests": [
+        "rstudioapi",
+        "shiny",
+        "testit",
+        "rmarkdown",
+        "knitr"
+      ],
+      "License": "GPL",
+      "URL": "https://github.com/yihui/formatR",
+      "BugReports": "https://github.com/yihui/formatR/issues",
+      "VignetteBuilder": "knitr",
+      "RoxygenNote": "7.2.3",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "no",
+      "Author": "Yihui Xie [aut, cre] (<https://orcid.org/0000-0003-0645-5666>), Ed Lee [ctb], Eugene Ha [ctb], Kohske Takahashi [ctb], Pavel Krivitsky [ctb]",
+      "Maintainer": "Yihui Xie <xie@yihui.name>",
+      "Repository": "RSPM"
+    },
     "fs": {
       "Package": "fs",
       "Version": "1.6.5",
@@ -3145,6 +3179,54 @@
       "Author": "Davis Vaughan [aut, cre], Matt Dancho [aut], RStudio [cph, fnd]",
       "Maintainer": "Davis Vaughan <davis@rstudio.com>",
       "Repository": "RSPM"
+    },
+    "futile.logger": {
+      "Package": "futile.logger",
+      "Version": "1.4.3",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "A Logging Utility for R",
+      "Date": "2016-07-10",
+      "Author": "Brian Lee Yung Rowe",
+      "Maintainer": "Brian Lee Yung Rowe <r@zatonovo.com>",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Imports": [
+        "utils",
+        "lambda.r (>= 1.1.0)",
+        "futile.options"
+      ],
+      "Suggests": [
+        "testthat",
+        "jsonlite"
+      ],
+      "Description": "Provides a simple yet powerful logging utility. Based loosely on log4j, futile.logger takes advantage of R idioms to make logging a convenient and easy to use replacement for cat and print statements.",
+      "License": "LGPL-3",
+      "LazyLoad": "yes",
+      "NeedsCompilation": "no",
+      "ByteCompile": "yes",
+      "Collate": "'options.R' 'appender.R' 'constants.R' 'layout.R' 'logger.R' 'scat.R' 'futile.logger-package.R'",
+      "RoxygenNote": "5.0.1",
+      "Repository": "https://cran.r-project.org"
+    },
+    "futile.options": {
+      "Package": "futile.options",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Futile Options Management",
+      "Date": "2018-04-20",
+      "Author": "Brian Lee Yung Rowe",
+      "Maintainer": "Brian Lee Yung Rowe <r@zatonovo.com>",
+      "Depends": [
+        "R (>= 2.8.0)"
+      ],
+      "Description": "A scoped options management framework. Used in other packages.",
+      "License": "LGPL-3",
+      "LazyLoad": "yes",
+      "NeedsCompilation": "no",
+      "Repository": "https://cran.r-project.org"
     },
     "future": {
       "Package": "future",
@@ -3246,6 +3328,61 @@
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Jennifer Bryan [ctb] (<https://orcid.org/0000-0002-6983-2759>)",
       "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
       "Repository": "RSPM"
+    },
+    "ggforce": {
+      "Package": "ggforce",
+      "Version": "0.4.2",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Accelerating 'ggplot2'",
+      "Authors@R": "c(person(given = \"Thomas Lin\", family = \"Pedersen\", role = c(\"cre\", \"aut\"), email = \"thomasp85@gmail.com\", comment = c(ORCID = \"0000-0002-5147-4711\")), person(\"RStudio\", role = \"cph\"))",
+      "Maintainer": "Thomas Lin Pedersen <thomasp85@gmail.com>",
+      "Description": "The aim of 'ggplot2' is to aid in visual data investigations. This focus has led to a lack of facilities for composing specialised plots. 'ggforce' aims to be a collection of mainly new stats and geoms that fills this gap. All additional functionality is aimed to come through the official extension system so using 'ggforce' should be a stable experience.",
+      "URL": "https://ggforce.data-imaginist.com, https://github.com/thomasp85/ggforce",
+      "BugReports": "https://github.com/thomasp85/ggforce/issues",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Depends": [
+        "ggplot2 (>= 3.3.6)",
+        "R (>= 3.3.0)"
+      ],
+      "Imports": [
+        "Rcpp (>= 0.12.2)",
+        "grid",
+        "scales",
+        "MASS",
+        "tweenr (>= 0.1.5)",
+        "gtable",
+        "rlang",
+        "polyclip",
+        "stats",
+        "grDevices",
+        "tidyselect",
+        "withr",
+        "utils",
+        "lifecycle",
+        "cli",
+        "vctrs",
+        "systemfonts"
+      ],
+      "LinkingTo": [
+        "Rcpp",
+        "RcppEigen"
+      ],
+      "RoxygenNote": "7.3.1",
+      "Suggests": [
+        "sessioninfo",
+        "concaveman",
+        "deldir",
+        "latex2exp",
+        "reshape2",
+        "units (>= 0.4-6)",
+        "covr"
+      ],
+      "Collate": "'RcppExports.R' 'aaa.R' 'shape.R' 'arc_bar.R' 'arc.R' 'autodensity.R' 'autohistogram.R' 'autopoint.R' 'bezier.R' 'bspline.R' 'bspline_closed.R' 'circle.R' 'diagonal.R' 'diagonal_wide.R' 'ellipse.R' 'errorbar.R' 'facet_grid_paginate.R' 'facet_matrix.R' 'facet_row.R' 'facet_stereo.R' 'facet_wrap_paginate.R' 'facet_zoom.R' 'ggforce-package.R' 'ggproto-classes.R' 'interpolate.R' 'labeller.R' 'link.R' 'mark_circle.R' 'mark_ellipse.R' 'mark_hull.R' 'mark_label.R' 'mark_rect.R' 'parallel_sets.R' 'position-jitternormal.R' 'position_auto.R' 'position_floatstack.R' 'regon.R' 'scale-depth.R' 'scale-unit.R' 'sina.R' 'spiro.R' 'themes.R' 'trans.R' 'trans_linear.R' 'utilities.R' 'voronoi.R' 'zzz.R'",
+      "NeedsCompilation": "yes",
+      "Author": "Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), RStudio [cph]",
+      "Repository": "https://cran.r-project.org"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -4506,6 +4643,30 @@
       "Repository": "RSPM",
       "Encoding": "UTF-8"
     },
+    "lambda.r": {
+      "Package": "lambda.r",
+      "Version": "1.2.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Modeling Data with Functional Programming",
+      "Date": "2019-09-15",
+      "Depends": [
+        "R (>= 3.0.0)"
+      ],
+      "Imports": [
+        "formatR"
+      ],
+      "Suggests": [
+        "testit"
+      ],
+      "Author": "Brian Lee Yung Rowe",
+      "Maintainer": "Brian Lee Yung Rowe <r@zatonovo.com>",
+      "Description": "A language extension to efficiently write functional programs in R. Syntax extensions include multi-part function definitions, pattern matching, guard statements, built-in (optional) type safety.",
+      "License": "LGPL-3",
+      "LazyLoad": "yes",
+      "NeedsCompilation": "no",
+      "Repository": "https://cran.r-project.org"
+    },
     "later": {
       "Package": "later",
       "Version": "1.4.1",
@@ -4954,6 +5115,50 @@
       "Repository": "RSPM",
       "Encoding": "UTF-8"
     },
+    "monolix2rx": {
+      "Package": "monolix2rx",
+      "Version": "0.0.4",
+      "Source": "Repository",
+      "Title": "Converts 'Monolix' Models to 'rxode2'",
+      "Authors@R": "c(person(\"Matthew\",\"Fidler\", role = c(\"aut\", \"cre\"), email = \"matthew.fidler@gmail.com\", comment=c(ORCID=\"0000-0001-8538-6691\")), person(\"Justin\", \"Wilkins\", role = \"ctb\", email = \"justin.wilkins@occams.com\", comment=c(ORCID=\"0000-0002-7099-9396\")))",
+      "Description": "'Monolix' is a tool for running mixed effects model using 'saem'. This tool allows you to convert 'Monolix' models to 'rxode2' (Wang, Hallow and James (2016) <doi:10.1002/psp4.12052>) using the form compatible with 'nlmixr2' (Fidler et al (2019) <doi:10.1002/psp4.12445>). If available, the 'rxode2' model will read in the 'Monolix' data and compare the simulation for the population model individual model and residual model to immediately show how well the translation is performing. This saves the model development time for people who are creating an 'rxode2' model manually.  Additionally, this package reads in all the information to allow simulation with uncertainty (that is the number of observations, the number of subjects, and the covariance matrix) with a 'rxode2' model.  This is complementary to the 'babelmixr2' package that translates 'nlmixr2' models to 'Monolix' and can convert the objects converted from 'monolix2rx' to a full 'nlmixr2' fit. While not required, you can  get/install the 'lixoftConnectors' package in the 'Monolix' installation, as described at the following url   <https://monolixsuite.slp-software.com/r-functions/2024R1/installation-and-initialization>. When 'lixoftConnectors' is available, 'Monolix' can be used to load its model library instead manually setting up text files (which only works with old versions of 'Monolix').",
+      "License": "MIT + file LICENSE",
+      "URL": "https://nlmixr2.github.io/monolix2rx/, https://github.com/nlmixr2/monolix2rx/",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "LinkingTo": [
+        "dparser",
+        "rxode2",
+        "Rcpp"
+      ],
+      "Imports": [
+        "Rcpp",
+        "checkmate",
+        "cli",
+        "dparser",
+        "withr",
+        "ggplot2",
+        "ggforce",
+        "stringi",
+        "crayon",
+        "lotri",
+        "magrittr",
+        "rxode2 (>= 3.0.0)"
+      ],
+      "Suggests": [
+        "devtools",
+        "testthat (>= 3.0.0)",
+        "xgxr",
+        "vdiffr",
+        "lixoftConnectors"
+      ],
+      "Config/testthat/edition": "3",
+      "Config/Needs/website": "rmarkdown",
+      "NeedsCompilation": "yes",
+      "Author": "Matthew Fidler [aut, cre] (<https://orcid.org/0000-0001-8538-6691>), Justin Wilkins [ctb] (<https://orcid.org/0000-0002-7099-9396>)",
+      "Maintainer": "Matthew Fidler <matthew.fidler@gmail.com>",
+      "Repository": "https://cran.r-project.org"
+    },
     "mrgsolve": {
       "Package": "mrgsolve",
       "Version": "1.5.1",
@@ -5161,6 +5366,64 @@
       "Author": "Brian Ripley [aut, cre, cph], William Venables [cph]",
       "Maintainer": "Brian Ripley <Brian.Ripley@R-project.org>",
       "Repository": "CRAN"
+    },
+    "nonmem2rx": {
+      "Package": "nonmem2rx",
+      "Version": "0.1.6",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Converts 'NONMEM' Models to 'rxode2'",
+      "Maintainer": "Matthew Fidler <matthew.fidler@gmail.com>",
+      "Authors@R": "c(person(\"Matthew\",\"Fidler\", role = c(\"aut\", \"cre\"), email = \"matthew.fidler@gmail.com\", comment=c(ORCID=\"0000-0001-8538-6691\")), person(\"Philip\", \"Delff\", email = \"philip@delff.dk\",role = c(\"ctb\")), person(\"Gabriel\", \"Staples\", role=\"ctb\", comment=\"string insensitive compare\"))",
+      "Description": "'NONMEM' has been a tool for running nonlinear mixed effects models since the 80s and is still used today (Bauer 2019 <doi:10.1002/psp4.12404>). This tool allows you to convert 'NONMEM' models to 'rxode2' (Wang, Hallow and James (2016) <doi:10.1002/psp4.12052>) and with simple models 'nlmixr2' syntax (Fidler et al (2019) <doi:10.1002/psp4.12445>). The 'nlmixr2' syntax requires the residual specification to be included and it is not always translated. If available, the 'rxode2' model will read in the 'NONMEM' data and compare the simulation for the population model ('PRED') individual model ('IPRED') and residual model ('IWRES') to immediately show how well the translation is performing. This saves the model development time for people who are creating an 'rxode2' model manually.  Additionally, this package reads in all the information to allow simulation with uncertainty (that is the number of observations, the number of subjects, and the covariance matrix) with a 'rxode2' model.  This is complementary to the 'babelmixr2' package that translates 'nlmixr2' models to 'NONMEM' and can convert the objects converted from 'nonmem2rx' to a full 'nlmixr2' fit.",
+      "License": "GPL (>= 3)",
+      "URL": "https://nlmixr2.github.io/nonmem2rx/, https://github.com/nlmixr2/nonmem2rx/",
+      "Encoding": "UTF-8",
+      "LinkingTo": [
+        "dparser",
+        "Rcpp",
+        "rxode2"
+      ],
+      "Imports": [
+        "checkmate",
+        "digest",
+        "dparser",
+        "lotri",
+        "Rcpp",
+        "rxode2 (> 2.0.13)",
+        "magrittr",
+        "cli",
+        "tools",
+        "utils",
+        "data.table",
+        "qs",
+        "xml2",
+        "ggplot2",
+        "ggforce",
+        "crayon"
+      ],
+      "Suggests": [
+        "devtools",
+        "testthat (>= 3.0.0)",
+        "nonmemica",
+        "NMdata",
+        "nonmem2R",
+        "withr",
+        "nlme",
+        "dplyr",
+        "xgxr",
+        "vdiffr",
+        "knitr",
+        "rmarkdown",
+        "spelling"
+      ],
+      "Config/testthat/edition": "3",
+      "RoxygenNote": "7.3.2",
+      "VignetteBuilder": "knitr",
+      "Language": "en-US",
+      "NeedsCompilation": "yes",
+      "Author": "Matthew Fidler [aut, cre] (<https://orcid.org/0000-0001-8538-6691>), Philip Delff [ctb], Gabriel Staples [ctb] (string insensitive compare)",
+      "Repository": "https://cran.r-project.org"
     },
     "openssl": {
       "Package": "openssl",
@@ -5600,6 +5863,27 @@
       "NeedsCompilation": "yes",
       "Repository": "RSPM",
       "Encoding": "UTF-8"
+    },
+    "polyclip": {
+      "Package": "polyclip",
+      "Version": "1.10-7",
+      "Source": "Repository",
+      "Date": "2024-07-23",
+      "Title": "Polygon Clipping",
+      "Authors@R": "c(person(\"Angus\", \"Johnson\", role = \"aut\",  comment=\"C++ original, http://www.angusj.com/delphi/clipper.php\"), person(\"Adrian\", \"Baddeley\", role = c(\"aut\", \"trl\", \"cre\"), email = \"Adrian.Baddeley@curtin.edu.au\"), person(\"Kurt\", \"Hornik\", role = \"ctb\"), person(c(\"Brian\", \"D.\"), \"Ripley\", role = \"ctb\"), person(\"Elliott\", \"Sales de Andrade\", role=\"ctb\"), person(\"Paul\", \"Murrell\", role = \"ctb\"), person(\"Ege\", \"Rubak\", role=\"ctb\"), person(\"Mark\", \"Padgham\", role=\"ctb\"))",
+      "Maintainer": "Adrian Baddeley <Adrian.Baddeley@curtin.edu.au>",
+      "Depends": [
+        "R (>= 3.5.0)"
+      ],
+      "Description": "R port of Angus Johnson's open source library 'Clipper'. Performs polygon clipping operations (intersection, union, set minus, set difference) for polygonal regions of arbitrary complexity, including holes. Computes offset polygons (spatial buffer zones, morphological dilations, Minkowski dilations) for polygonal regions and polygonal lines. Computes Minkowski Sum of general polygons. There is a function for removing self-intersections from polygon data.",
+      "License": "BSL",
+      "URL": "https://www.angusj.com, https://sourceforge.net/projects/polyclipping, https://github.com/baddstats/polyclip",
+      "BugReports": "https://github.com/baddstats/polyclip/issues",
+      "ByteCompile": "true",
+      "Note": "built from Clipper C++ version 6.4.0",
+      "NeedsCompilation": "yes",
+      "Author": "Angus Johnson [aut] (C++ original, http://www.angusj.com/delphi/clipper.php), Adrian Baddeley [aut, trl, cre], Kurt Hornik [ctb], Brian D. Ripley [ctb], Elliott Sales de Andrade [ctb], Paul Murrell [ctb], Ege Rubak [ctb], Mark Padgham [ctb]",
+      "Repository": "https://cran.r-project.org"
     },
     "praise": {
       "Package": "praise",
@@ -6615,6 +6899,39 @@
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut], mikefc [cph] (Hash implementation based on Mike's xxhashlite), Yann Collet [cph] (Author of the embedded xxHash library), Posit, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "https://packagemanager.posit.co/cran/2025-01-21"
+    },
+    "rly": {
+      "Package": "rly",
+      "Version": "1.7.4",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Tools to Create Formal Language Parser",
+      "Date": "2022-05-08",
+      "Authors@R": "c(person(\"Marek\", \"Jagielski\", role = c(\"aut\", \"cre\", \"cph\"), email = \"marek.jagielski@gmail.com\"), person(\"David M.\", \"Beazley\", role = c(\"aut\", \"cph\")), person(\"Yasutaka\", \"Tanaka\", role = c(\"ctb\")), person(\"Henrico\", \"Witvliet\", role = c(\"ctb\")))",
+      "Author": "Marek Jagielski [aut, cre, cph], David M. Beazley [aut, cph], Yasutaka Tanaka [ctb], Henrico Witvliet [ctb]",
+      "Maintainer": "Marek Jagielski <marek.jagielski@gmail.com>",
+      "Description": "R implementation of the common parsing tools 'lex' and 'yacc'.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://github.com/systemincloud/rly",
+      "BugReports": "https://github.com/systemincloud/rly/issues",
+      "Suggests": [
+        "testthat",
+        "knitr",
+        "rmarkdown"
+      ],
+      "Encoding": "UTF-8",
+      "Depends": [
+        "R (>= 3.3.0)"
+      ],
+      "Imports": [
+        "R6",
+        "futile.logger"
+      ],
+      "RoxygenNote": "6.1.1",
+      "Collate": "'logger.R' 'lex.R' 'yacc.R' 'rly-package.R'",
+      "VignetteBuilder": "knitr",
+      "NeedsCompilation": "yes",
+      "Repository": "https://cran.r-project.org"
     },
     "rmarkdown": {
       "Package": "rmarkdown",
@@ -7823,6 +8140,40 @@
       "Date": "2023-03-04",
       "NeedsCompilation": "yes",
       "Repository": "RSPM"
+    },
+    "tweenr": {
+      "Package": "tweenr",
+      "Version": "2.0.3",
+      "Source": "Repository",
+      "Type": "Package",
+      "Title": "Interpolate Data for Smooth Animations",
+      "Authors@R": "c(person(given = \"Thomas Lin\", family = \"Pedersen\", role = c(\"aut\", \"cre\"), email = \"thomasp85@gmail.com\", comment = c(ORCID = \"0000-0002-5147-4711\")))",
+      "Maintainer": "Thomas Lin Pedersen <thomasp85@gmail.com>",
+      "Description": "In order to create smooth animation between states of data, tweening is necessary. This package provides a range of functions for creating tweened data that can be used as basis for animation. Furthermore  it adds a number of vectorized interpolaters for common R data  types such as numeric, date and colour.",
+      "URL": "https://github.com/thomasp85/tweenr",
+      "BugReports": "https://github.com/thomasp85/tweenr/issues",
+      "License": "MIT + file LICENSE",
+      "Encoding": "UTF-8",
+      "Depends": [
+        "R (>= 3.2.0)"
+      ],
+      "Imports": [
+        "farver",
+        "magrittr",
+        "rlang",
+        "vctrs"
+      ],
+      "LinkingTo": [
+        "cpp11 (>= 0.4.2)"
+      ],
+      "RoxygenNote": "7.2.3",
+      "Suggests": [
+        "testthat",
+        "covr"
+      ],
+      "NeedsCompilation": "yes",
+      "Author": "Thomas Lin Pedersen [aut, cre] (<https://orcid.org/0000-0002-5147-4711>)",
+      "Repository": "https://cran.r-project.org"
     },
     "tzdb": {
       "Package": "tzdb",
