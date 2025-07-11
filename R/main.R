@@ -206,7 +206,7 @@ noCommaForLastPackage <- function(raw) {
 #' @return a character vector of the private packages
 #'
 getPrivatePackages <- function() {
-  return(c("campsistrans"))
+  return(NULL)
 }
 
 #'
@@ -215,7 +215,7 @@ getPrivatePackages <- function() {
 #' @return a character vector of the public packages
 #'
 getPublicPackages <- function() {
-  return(c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual"))
+  return(c("campsismod", "campsis", "campsisnca", "campsismisc", "campsistrans", "campsisqual"))
 }
 
 #'

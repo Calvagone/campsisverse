@@ -2,7 +2,8 @@ library(testthat)
 
 context("Test the main script")
 
-source(paste0("", "testUtils.R"))
+testFolder <-  file.path(getwd(), test_path())
+source(file.path(testFolder, "testUtils.R"))
 
 test_that("Method 'processVersion' works as expected", {
 
@@ -15,8 +16,8 @@ test_that("Method 'processVersion' works as expected", {
 
 test_that("Method 'getCampsisSuitePackages' works as expected", {
   
-  expect_equal(getCampsisSuitePackages(), c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual", "campsistrans", "mrgsolve", "rxode2"))
-  expect_equal(getCampsisSuitePackages(include_engines=FALSE), c("campsismod", "campsis", "campsisnca", "campsismisc", "campsisqual", "campsistrans"))
+  expect_equal(getCampsisSuitePackages(), c("campsismod", "campsis", "campsisnca", "campsismisc", "campsistrans", "campsisqual", "mrgsolve", "rxode2"))
+  expect_equal(getCampsisSuitePackages(include_engines=FALSE), c("campsismod", "campsis", "campsisnca", "campsismisc", "campsistrans", "campsisqual"))
 })
 
 test_that("Test the renv.lock file dated 250209", {
@@ -28,11 +29,10 @@ test_that("Test the renv.lock file dated 250209", {
   packages <- campsisverse:::detectPackages(raw)
   expect_equal(length(packages), 227)
   
-  # All but private packages
+  # All but private packages (same now since campsistrans is open source)
   raw <- readLines(getLockFile(version=version, all=FALSE, no_deps=FALSE))
   packages <- campsisverse:::detectPackages(raw)
-  expect_equal(length(packages), 226)
-  expect_false("campsistrans" %in% packages)
+  expect_equal(length(packages), 227)
   
   # All packages but omit Campsis suite dependencies
   raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=TRUE))
@@ -49,11 +49,10 @@ test_that("Test the renv.lock file dated 250329", {
   packages <- campsisverse:::detectPackages(raw)
   expect_equal(length(packages), 228)
   
-  # All but private packages
+  # All but private packages (same now since campsistrans is open source)
   raw <- readLines(getLockFile(version=version, all=FALSE, no_deps=FALSE))
   packages <- campsisverse:::detectPackages(raw)
-  expect_equal(length(packages), 227)
-  expect_false("campsistrans" %in% packages)
+  expect_equal(length(packages), 228)
   
   # All packages but omit Campsis suite dependencies
   raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=TRUE))
@@ -70,11 +69,30 @@ test_that("Test the renv.lock file dated 250404", {
   packages <- campsisverse:::detectPackages(raw)
   expect_equal(length(packages), 228)
   
-  # All but private packages
+  # All but private packages (same now since campsistrans is open source)
   raw <- readLines(getLockFile(version=version, all=FALSE, no_deps=FALSE))
   packages <- campsisverse:::detectPackages(raw)
-  expect_equal(length(packages), 227)
-  expect_false("campsistrans" %in% packages)
+  expect_equal(length(packages), 228)
+  
+  # All packages but omit Campsis suite dependencies
+  raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=TRUE))
+  packages <- campsisverse:::detectPackages(raw)
+  expect_equal(packages, c("campsis", "campsismisc", "campsismod", "campsisnca", "campsisqual", "campsistrans", "mrgsolve", "rxode2"))
+})
+
+test_that("Test the renv.lock file dated 250711", {
+  version <- "250711"
+  expect_true(version %in% getAvailableVersions())
+  
+  # All packages
+  raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=FALSE))
+  packages <- campsisverse:::detectPackages(raw)
+  expect_equal(length(packages), 235)
+  
+  # All but private packages (same now since campsistrans is open source)
+  raw <- readLines(getLockFile(version=version, all=FALSE, no_deps=FALSE))
+  packages <- campsisverse:::detectPackages(raw)
+  expect_equal(length(packages), 235)
   
   # All packages but omit Campsis suite dependencies
   raw <- readLines(getLockFile(version=version, all=TRUE, no_deps=TRUE))
