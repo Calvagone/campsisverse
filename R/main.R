@@ -117,7 +117,7 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   # Discard renv package
   if (discard_renv) {
     packages <- detectPackages(dataRaw)
-    dataRaw <- removePackageFromRaw(dataRaw, "renv", last=packages[length(packages)]==package)
+    dataRaw <- removePackageFromRaw(dataRaw, "renv", last=packages[length(packages)]=="renv")
   }
   
   # Discard Campsis suite dependencies if argument no_deps is TRUE
