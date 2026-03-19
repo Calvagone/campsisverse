@@ -19,3 +19,6 @@ usethis::use_data(renv_lock_250711, overwrite=TRUE)
 
 renv_lock_260105 <- readr::read_file("data-raw/renv_260105/renv.lock")
 usethis::use_data(renv_lock_260105, overwrite=TRUE)
+
+renv_lock_260320 <- readr::read_file("data-raw/renv_260320/renv.lock")
+usethis::use_data(renv_lock_260320, overwrite=TRUE)
