@@ -13,3 +13,5 @@
 ^cran-comments\.md$
 ^docs$
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
