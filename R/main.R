@@ -18,19 +18,22 @@ install <- function(..., cran=TRUE) {
     sprintf("%scampsis", ifelse(cran, "", "Calvagone/")),
     "Calvagone/campsisnca",
     "Calvagone/campsismisc",
-    "Calvagone/campsisqual"
+    "Calvagone/campsisqual",
+    "Calvagone/campsistrans"
   )
   # Set type to 'source', otherwise tests are not installed when packages come from CRAN
   renv::install(packages=packages, type="source", ...)
   extras <- c(
     "mrgsolve",
     "rxode2",
-    "ncappc", # Campsisnca testing only
-    "xgxr",
-    "cowplot",
-    "ragg",
-    "plumber",
-    "arrow"
+    "ncappc",         # Campsisnca testing
+    "xgxr",           # e-Campsis (R version)
+    "cowplot",        # e-Campsis (R version)
+    "ragg",           # High-quality 2D drawing library 
+    "plumber",        # e-Campsis desktop
+    "arrow",          # e-Campsis desktop
+    "base64enc",      # e-Campsis desktop
+    "webshot2"        # e-Campsis desktop
   )
   renv::install(packages=extras, ...)
 }
