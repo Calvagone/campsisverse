@@ -1,9 +1,15 @@
+setwd("C:/prj/campsisverse/data-raw/renv_260806")
+
+Sys.setenv(GITHUB_PAT = "")
+
 # Sys.setenv(GITHUB_PAT=<REPLACE_ME>)
 repos <- "https://packagemanager.posit.co/cran/2026-08-06"
 options(repos = repos)
 
-# Initialize a bare renv project without installing bare CRAN defaults
-renv::init(bare = TRUE, repos = repos)
+renv::init(bare = TRUE, repos = repos, restart = FALSE)
+
+lockfile <- renv::lockfile_create(project = getwd())
+renv::lockfile_write(lockfile, file = "renv.lock")
 
 # Install and snapshot (lock=TRUE)
 pkgs <- c(
@@ -24,4 +30,4 @@ pkgs <- c(
     "webshot2"        # e-Campsis desktop
     )
 
-  renv::record(records = pkgs, lock = TRUE)
+  renv::record(records = pkgs)
