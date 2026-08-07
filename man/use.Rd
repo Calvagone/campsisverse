@@ -4,7 +4,7 @@
 \alias{use}
 \title{Use environment.}
 \usage{
-use(version = getPackageVersion(), all = FALSE, no_deps = FALSE, ...)
+use(version = get_package_version(), all = FALSE, no_deps = FALSE, ...)
 }
 \arguments{
 \item{version}{campsisverse version}

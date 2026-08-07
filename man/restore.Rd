@@ -5,7 +5,7 @@
 \title{Restore environment.}
 \usage{
 restore(
-  version = getPackageVersion(),
+  version = get_package_version(),
   all = FALSE,
   no_deps = FALSE,
   library = .libPaths(),

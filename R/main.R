@@ -49,10 +49,10 @@ install <- function(..., cran=TRUE) {
 #' @importFrom renv restore
 #' @export
 #'
-restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, library=.libPaths(), ...) {
+restore <- function(version=get_package_version(), all=FALSE, no_deps=FALSE, library=.libPaths(), ...) {
   options(INSTALL_opts="--install-tests")
   # Warning is suppressed because of the following issue: #1
-  suppressWarnings(renv::restore(library=library, lockfile=getLockFile(version=version, all=all, no_deps=no_deps), ...))
+  suppressWarnings(renv::restore(library=library, lockfile=get_lock_file(version=version, all=all, no_deps=no_deps), ...))
 }
 
 #'
@@ -65,9 +65,9 @@ restore <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, libra
 #' @importFrom renv use
 #' @export
 #'
-use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
+use <- function(version=get_package_version(), all=FALSE, no_deps=FALSE, ...) {
   options(INSTALL_opts="--install-tests")
-  lockfile <- getLockFile(version=version, all=all, no_deps=no_deps, discard_renv=TRUE)
+  lockfile <- get_lock_file(version=version, all=all, no_deps=no_deps, discard_renv=TRUE)
   # Warning is suppressed because of the following issue: #1
   suppressWarnings(renv::use(lockfile=lockfile, ...))
 }
@@ -80,9 +80,9 @@ use <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, ...) {
 #' @export
 #'
 uninstall <- function(all=FALSE) {
-  packages <- getPublicPackages()
+  packages <- get_public_packages()
   if (all) {
-    packages <- c(packages, getPrivatePackages())
+    packages <- c(packages, get_private_packages())
   }
   for (package in packages) {
     if (length(find.package(package, quiet=TRUE)) > 0) {
@@ -101,8 +101,8 @@ uninstall <- function(all=FALSE) {
 #' @param discard_renv discard renv package from the lock file, default is FALSE
 #' @export
 #'
-getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
-  version_ <- processVersion(version)
+get_lock_file <- function(version=get_package_version(), all=FALSE, no_deps=FALSE, prompt=TRUE, discard_renv=FALSE) {
+  version_ <- process_version(version)
   
   filePath <- tempfile(fileext=".lock")
   fileConn <- file(filePath)
@@ -113,33 +113,33 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
 
   # Discard private packages if argument all is FALSE
   if (!all) {
-    packages <- detectPackages(dataRaw)
-    for (package in getPrivatePackages()) {
-      dataRaw <- removePackageFromRaw(dataRaw, package, last=packages[length(packages)]==package)
+    packages <- detect_packages(dataRaw)
+    for (package in get_private_packages()) {
+      dataRaw <- remove_package_from_raw(dataRaw, package, last=packages[length(packages)]==package)
     }
   }
   
   # Discard renv package
   if (discard_renv) {
-    packages <- detectPackages(dataRaw)
-    dataRaw <- removePackageFromRaw(dataRaw, "renv", last=packages[length(packages)]=="renv")
+    packages <- detect_packages(dataRaw)
+    dataRaw <- remove_package_from_raw(dataRaw, "renv", last=packages[length(packages)]=="renv")
   }
   
   # Discard Campsis suite dependencies if argument no_deps is TRUE
   # Note: mrgsolve and rxode2 are always included
   if (no_deps) {
-    packages <- detectPackages(dataRaw)
-    campsisSuitePackages <- getCampsisSuitePackages(include_engines=TRUE)
+    packages <- detect_packages(dataRaw)
+    campsisSuitePackages <- get_campsis_suite_packages(include_engines=TRUE)
     for (package in packages) {
       if (!package %in% campsisSuitePackages) {
         # print(sprintf("Removing package %s", package))
-        dataRaw <- removePackageFromRaw(dataRaw, package, last=packages[length(packages)]==package)
+        dataRaw <- remove_package_from_raw(dataRaw, package, last=packages[length(packages)]==package)
       }
     }
   }
   
   # Possibly get rid of comma for last package
-  dataRaw <- noCommaForLastPackage(dataRaw)
+  dataRaw <- no_comma_for_last_package(dataRaw)
   
   writeLines(dataRaw, fileConn)
   close(fileConn)
@@ -147,7 +147,7 @@ getLockFile <- function(version=getPackageVersion(), all=FALSE, no_deps=FALSE, p
   return(filePath)
 }
 
-processVersion <- function(version) {
+process_version <- function(version) {
   version_ <- gsub(pattern="[\\.-]", replacement="", x=version)
   if (!version_ %in% getAvailableVersions()) {
     stop(sprintf("Version %s is not available. Available versions are: %s. Please run remotes::install_github(\"Calvagone/campsisverse\") to update Campsisverse.",
@@ -156,7 +156,7 @@ processVersion <- function(version) {
   return(version_)
 }
 
-removePackageFromRaw <- function(raw, package, last) {
+remove_package_from_raw <- function(raw, package, last) {
 
   # Detect package start
   start <- which(grepl(pattern=sprintf("^[[:space:]]+\"%s\":[[:space:]]+\\{[[:space:]]*$", package), x=raw))
@@ -175,7 +175,7 @@ removePackageFromRaw <- function(raw, package, last) {
   return(raw)
 }
 
-detectPackages <- function(raw) {
+detect_packages <- function(raw) {
   # Detect start of packages
   start <- which(grepl(pattern="^[[:space:]]+\"Packages\":[[:space:]]+\\{[[:space:]]*$", x=raw))
   
@@ -189,8 +189,8 @@ detectPackages <- function(raw) {
   return(packages)
 }
 
-noCommaForLastPackage <- function(raw) {
-  packages <- detectPackages(raw)
+no_comma_for_last_package <- function(raw) {
+  packages <- detect_packages(raw)
   lastPackage <- packages[length(packages)]
   
   # Detect package start
@@ -210,7 +210,7 @@ noCommaForLastPackage <- function(raw) {
 #'
 #' @return a character vector of the private packages
 #'
-getPrivatePackages <- function() {
+get_private_packages <- function() {
   return(NULL)
 }
 
@@ -219,7 +219,7 @@ getPrivatePackages <- function() {
 #'
 #' @return a character vector of the public packages
 #'
-getPublicPackages <- function() {
+get_public_packages <- function() {
   return(c("campsismod", "campsis", "campsisnca", "campsismisc", "campsistrans", "campsisqual"))
 }
 
@@ -230,8 +230,8 @@ getPublicPackages <- function() {
 #' @return a character vector with the packages
 #' @export
 #'
-getCampsisSuitePackages <- function(include_engines=TRUE) {
-  retValue <- c(getPublicPackages(), getPrivatePackages())
+get_campsis_suite_packages <- function(include_engines=TRUE) {
+  retValue <- c(get_public_packages(), get_private_packages())
   if (include_engines) {
     retValue <- retValue |>
       append(c("mrgsolve", "rxode2"))
@@ -240,7 +240,7 @@ getCampsisSuitePackages <- function(include_engines=TRUE) {
   return(retValue)
 }
 
-getPackageVersion <- function() {
+get_package_version <- function() {
   return(getNamespaceVersion("campsisverse") |>
            as.character())
 }
