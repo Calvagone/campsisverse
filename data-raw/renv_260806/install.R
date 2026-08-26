@@ -7,10 +7,10 @@ options(INSTALL_opts = "--install-tests")
 
 pkgs <- c(
   "Calvagone/campsismod@v1.4.0",
-  "Calvagone/campsis@v1.9.0",
+  "Calvagone/campsis@v1.9.0.9001",
   "Calvagone/campsisnca@v1.7.0",
   "Calvagone/campsismisc@v1.0.0",
-  "Calvagone/campsisqual@v1.5.0",
+  "Calvagone/campsisqual@v1.5.1",
   "Calvagone/campsistrans@v1.5.0",
   "mrgsolve",
   "rxode2",

@@ -7,7 +7,9 @@ export(install)
 export(restore)
 export(uninstall)
 export(use)
-importFrom(renv,install)
-importFrom(renv,restore)
-importFrom(renv,use)
+importFrom(renv,
+  install,
+  restore,
+  use
+)
 importFrom(utils,remove.packages)
