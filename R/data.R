@@ -54,13 +54,18 @@
 "renv_lock_260806"
 
 #'
+#' Renv lock file made on 261001.
+#'
+"renv_lock_261001"
+
+#'
 #' Get all available versions.
 #'
 #' @param as_date return versions as dates, default is FALSE
 #' @export
 #'
 getAvailableVersions <- function(as_date = FALSE) {
-  retValue <- c("241201", "250209", "250329", "250404", "250711", "260105", "260320", "260508", "260519", "260806") # Please COMPLETE me
+  retValue <- c("241201", "250209", "250329", "250404", "250711", "260105", "260320", "260508", "260519", "260806", "261001") # Please COMPLETE me
   if (as_date) {
     retValue <- gsub(pattern = "(\\d)(\\d)(\\d)(\\d)(\\d)(\\d)", replacement = "\\1\\2-\\3\\4-\\5\\6", x = retValue)
   }
